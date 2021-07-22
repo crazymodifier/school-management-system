@@ -90,29 +90,32 @@
           <th>S.No</th>
           <th>Name</th>
           <th>section</th>
+          <th>Date</th>
           <th>Action</th>
           </tr>
           </thead>
           <tbody>
           <?php 
           $count = 1;
-          $cla_query = mysqli_query($db_conn, 'SELECT * FROM classes');
-          while($class = mysqli_fetch_object( $cla_query)){?>
+          $args = array(
+            'type' => 'class',
+            'status' => 'publish',
+          );
+          $classes = get_posts($args);
+          foreach($classes as $class){?>
               <tr>
               <td><?=$count++?></td>
               <td><?=$class->title?></td>
               <td>
-              <?PHP 
-             $sections = (explode(',',$class->section));
-             foreach ($sections as $section){
-              $sec_query = mysqli_query($db_conn, "SELECT * FROM sections WHERE id = '.$section.'");
-              $title = mysqli_fetch_object($sec_query);
-              echo $title;
-             }
-              
-              ?>
-              
+              <?php 
+              $class_meta = get_metadata($class->id,'section');
+              foreach ($class_meta as $meta){
+                $section = get_post(array('id'=>$meta->meta_value));
+                echo $section->title;
+              }?>
               </td>
+              <td><?=$class->publish_date?></td>
+              <td></td>
               </tr>
            <?php } ?>
           </tbody>

@@ -1,5 +1,4 @@
 <?php include('../includes/config.php') ?>
-<?php include('../includes/functions.php') ?>
 <?php
    
 
@@ -142,15 +141,19 @@
                                 <label for="class">Select Class</label>
                                 <select require name="class" id="class" class="form-control">
                                     <option value="">-Select Class-</option>
-                                    <?php 
-                                    $classes = get_the_classes($db_conn); 
+                                    <?php
+                                    $args = array(
+                                      'type' => 'class',
+                                      'status' => 'publish',
+                                    );
+                                    $classes = get_posts($args); 
                                     foreach ($classes as $key => $class) { ?>
                                     <option value="<?php echo $class->id ?>"><?php echo $class->title ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" id="section-container" style="display:none">
                                 <label for="section">Select Section</label>
                                 <select require name="section" id="section" class="form-control">
                                     <option value="">-Select Section-</option>
@@ -185,25 +188,23 @@
                                 <thead>
                                 <tr>
                                     <th>S.No.</th>
-                                    <th>Image</th>
                                     <th>Name</th>
-                                    <th>Category</th>
-                                    <th>Duration</th>
                                     <th>Date</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $count = 1;
-                                    $curse_query = mysqli_query($db_conn, 'SELECT * FROM courses');
-                                    while ($course = mysqli_fetch_object($curse_query)) {?>
+                                    $args = array(
+                                      'type' => 'subject',
+                                      'status' => 'publish',
+                                    );
+                                    $subjects = get_posts($args);
+                                    foreach($subjects as $subject){?>
                                     <tr>
                                         <td><?=$count++?></td>
-                                        <td><img src="../dist/uploads/<?=$course->image?>" height="100" alt="<?=$course->name?>" class="border"></td>
-                                        <td><?=$course->name?></td>
-                                        <td><?=$course->category?></td>
-                                        <td><?=$course->duration?></td>
-                                        <td><?=$course->date?></td>
+                                        <td><?=$subject->title?></td>
+                                        <td><?=$subject->publish_date?></td>
                                     </tr>
 
                                     <?php } ?>
