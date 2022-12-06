@@ -1,9 +1,9 @@
 <?php
  //session_start();
-  $site_url = 'http://localhost:8888/sms/';
-  if(isset($_SESSION['login']) && $_SESSION['login'] == TRUE)
+ $site_url = 'http://localhost:8888/sms/';
+  if(isset($_SESSION['login']))
   {
-    if(isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'admin')
+    if(isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'student')
     {
       $user_type = $_SESSION['user_type'];
       header('Location: /sms/'.$user_type.'/dashboard.php');
@@ -11,8 +11,12 @@
   }
   else 
   {
+    
     header('Location: ../login.php');
   }
+
+  $std_id = $_SESSION['user_id'];
+  $student = get_user_data($std_id);
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +26,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>Admin | Dashboard </title>
+  <title>Student | Dashboard </title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">

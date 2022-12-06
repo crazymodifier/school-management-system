@@ -1,4 +1,30 @@
 <?php include('../includes/config.php') ?>
+
+<?php
+
+if(isset($_POST['submit']))
+{
+  $title = isset($_POST['title'])?$_POST['title']:'';
+  $from = isset($_POST['from'])?$_POST['from']:'';
+  $to = isset($_POST['to'])?$_POST['to']:'';
+  $status = 'publish';
+  $type = 'period';
+  $date_add = date('Y-m-d g:i:s');
+
+  $query = mysqli_query($db_conn, "INSERT INTO `posts` (`title`,`status`,`publish_date`,`type`) VALUES ('$title','$status','$date_add','$type') ");
+
+  if($query)
+  {
+    $item_id = mysqli_insert_id($db_conn);
+  }
+
+  mysqli_query($db_conn, "INSERT INTO `metadata` (`meta_key`,`meta_value`,`item_id`) VALUES ('from','$from','$item_id') ");
+  mysqli_query($db_conn, "INSERT INTO `metadata` (`meta_key`,`meta_value`,`item_id`) VALUES ('to','$to','$item_id') ");
+
+  header('Location: periods.php');
+}
+
+?>
 <?php include('header.php') ?>
 <?php include('sidebar.php') ?>
 
@@ -41,7 +67,8 @@
                       <tr>
                         <th>S.No.</th>
                         <th>Title</th>
-                        <th>Action</th>
+                        <th>From</th>
+                        <th>To</th>
                       </tr>
                     </thead>
 
@@ -49,15 +76,19 @@
                       <?php
                       $count = 1;
                       $args = array(
-                        'type' => 'section',
+                        'type' => 'period',
                         'status' => 'publish',
                       );
-                      $sections = get_posts($args);
-                      foreach($sections as $section) {?>
+                      $periods = get_posts($args);
+                      foreach($periods as $period) {
+                        $from = get_metadata($period->id, 'from')[0]->meta_value;
+                        $to = get_metadata($period->id, 'to')[0]->meta_value;
+                        ?>
                       <tr>
                         <td><?=$count++?></td>
-                        <td><?=$section->title?></td>
-                        <td></td>
+                        <td><?=$period->title?></td>
+                        <td><?php echo date('h:i A',strtotime($from)) ?></td>
+                        <td><?php echo date('h:i A',strtotime($to)) ?></td>
                       </tr>
 
                       <?php } ?>
@@ -85,7 +116,14 @@
                     <label for="title">Title</label>
                     <input type="text" name="title" placeholder="Title" required class="form-control">
                   </div>
-                  
+                  <div class="form-group">
+                    <label for="title">From</label>
+                    <input type="time" name="from" placeholder="From" required class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="title">To</label>
+                    <input type="time" name="to" placeholder="To" required class="form-control">
+                  </div>
                   <button name="submit" class="btn btn-success float-right">
                     Submit
                   </button>

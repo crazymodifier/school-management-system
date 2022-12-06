@@ -1,7 +1,7 @@
   </div>
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2020 <a href="http://technostudy.co.in">School Managment System</a>.</strong>
+    <strong>Copyright &copy; 2020 <a href="https://technostudy.co.in">School Managment System</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0
@@ -42,33 +42,5 @@
   }());
 </script>
 
-<!-- Subject -->
-<script>
-jQuery(document).ready(function(){
-
-  jQuery('#class').change(function(){
-    // alert(jQuery(this).val());
-
-    jQuery.ajax({
-      url:'ajax.php',
-      type : 'POST',
-      data  : {'class_id':jQuery(this).val()},
-      dataType : 'json',
-      success: function(response){
-        if(response.count > 0)
-        {
-          jQuery('#section-container').show();        
-        }
-        else
-        {
-          jQuery('#section-container').hide();
-        }
-        jQuery('#section').html(response.options); 
-      }
-    });
-  });
-
-})
-</script>
 </body>
 </html>

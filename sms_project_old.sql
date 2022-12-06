@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Jun 14, 2022 at 06:56 PM
--- Server version: 5.7.34
--- PHP Version: 7.4.21
+-- Host: 127.0.0.1
+-- Generation Time: Aug 17, 2021 at 04:57 AM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 7.3.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -48,8 +48,8 @@ INSERT INTO `accounts` (`id`, `type`, `email`, `password`, `name`) VALUES
 (17, 'counseller', 'counseller@example.com', 'e807f1fcf82d132f9bb018ca6738a19f', 'Counseller'),
 (18, 'student', '', 'e807f1fcf82d132f9bb018ca6738a19f', ''),
 (19, 'student', 'asdf@asdf.asdf', '3ab8e8739c50726bceeb9a382e7e1959', 'Test User'),
-(20, 'student', 'modifiercrazy@gmail.com', '4c30e802c6107198a198ce5dff60b77f', 'Test user'),
-(21, 'student', 'modifiercrazy-1@gmail.com', 'e807f1fcf82d132f9bb018ca6738a19f', 'Modifier Crazy'),
+(20, 'student', 'modifiercrazy@gmail.com', '4c30e802c6107198a198ce5dff60b77f', 'Test user -2'),
+(21, 'student', 'modifiercrazy-1@gmail.com', '4c30e802c6107198a198ce5dff60b77f', 'Test user -2'),
 (22, 'student', 'test@test.com', '1f9e8bd9a3168110f6bb119d11c4d75c', 'test-1'),
 (23, 'student', 'test-2@test.com', 'db5f7a798f3c5b8b1e21bd523a7b3563', 'test-2');
 
@@ -63,7 +63,7 @@ CREATE TABLE `classes` (
   `id` int(11) NOT NULL,
   `title` text NOT NULL,
   `section` varchar(50) NOT NULL,
-  `added_date` date NOT NULL
+  `added_date` date NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `courses` (
   `name` text NOT NULL,
   `category` text NOT NULL,
   `duration` text NOT NULL,
-  `date` datetime NOT NULL,
+  `date` datetime NOT NULL ,
   `image` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -177,12 +177,12 @@ INSERT INTO `metadata` (`id`, `item_id`, `meta_key`, `meta_value`) VALUES
 
 CREATE TABLE `posts` (
   `id` int(11) NOT NULL,
-  `author` int(11) NOT NULL DEFAULT '1',
+  `author` int(11) NOT NULL DEFAULT 1,
   `title` text NOT NULL,
   `description` text NOT NULL,
   `type` varchar(100) NOT NULL,
-  `publish_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `modified_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `publish_date` timestamp NOT NULL ,
+  `modified_date` timestamp NOT NULL  ON UPDATE current_timestamp(),
   `status` varchar(50) NOT NULL,
   `parent` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
