@@ -3,44 +3,6 @@
 <?php include('sidebar.php') ?>
 
 
-<?php
-$success_msg =  false;
-if(isset($_POST['form_submitted'])){
-
-    $status = isset($_POST["status"])?$_POST["status"]:'success';
-    $firstname = isset($_POST["firstname"])?$_POST["firstname"]:'';
-    $amount = isset($_POST["amount"])?$_POST["amount"]:'';
-    $email = isset($_POST["email"])?$_POST["email"]:'';
-    $month = isset($_POST["month"])?$_POST["month"]:'';
-
-    $user_id = isset($_SESSION['user_id'])?$_SESSION['user_id']:"";
-
-    $title = $month.' - Fee';
-    
-    $query = mysqli_query($db_conn, "INSERT INTO `posts` (`title`, `type`,`description`, `status`, `author`,`parent`) VALUES ('$title', 'payment','','$status', $user_id,0)");
-    
-    if($query){
-        $item_id = mysqli_insert_id($db_conn);
-    }
-    
-    $payment_data = array(
-        'amount' => $amount,
-        'status' => $status,
-        'student_id' => $user_id,
-        'month' => $month
-    );
-    
-    foreach($payment_data as $key => $value){
-        mysqli_query($db_conn, "INSERT INTO `metadata` (`item_id`, `meta_key`, `meta_value`) VALUES ('$item_id', '$key', '$value')");
-    }
-    
-    $success_msg = true;
-}
-
-?>
-
-
-
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -54,8 +16,6 @@ if(isset($_POST['form_submitted'])){
               <li class="breadcrumb-item active">Student Fee Details</li>
             </ol>
           </div><!-- /.col -->
-
-          
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -63,12 +23,6 @@ if(isset($_POST['form_submitted'])){
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-
-            <?php if($success_msg){?>
-                <div class="alert alert-success" role="alert">
-                    Payment has been completed, Thank You!
-                </div>
-            <?php } ?>
 
         <?php 
           $usermeta = get_user_metadata($std_id);
@@ -130,6 +84,72 @@ if(isset($_POST['form_submitted'])){
     <!-- /.content -->
 
 
+    <?php
+
+    $MERCHANT_KEY = "YOUR MERCHANT_KEY";
+    $SALT = "YOUR SALT";
+
+    $PAYU_BASE_URL = "https://test.payu.in";			// For Production Mode
+
+    $action = '';
+
+    $posted = array();
+    if(!empty($_POST)) {
+        // print_r($_POST);die;
+        foreach($_POST as $key => $value) {    
+            $posted[$key] = $value; 
+            
+        }
+    }
+
+    $formError = 0;
+
+    if(empty($posted['txnid'])) {
+        // Generate random transaction id
+        $txnid = substr(hash('sha256', mt_rand() . microtime()), 0, 20);
+    } else {
+        $txnid = $posted['txnid'];
+    }
+    $hash = '';
+    // Hash Sequence
+    $hashSequence = "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10";
+    if(empty($posted['hash']) && sizeof($posted) > 0) {
+        if(
+          empty($posted['key'])
+          || empty($posted['txnid'])
+          || empty($posted['amount'])
+          || empty($posted['firstname'])
+          || empty($posted['email'])
+          || empty($posted['phone'])
+          || empty($posted['productinfo'])
+          || empty($posted['surl'])
+          || empty($posted['furl'])
+          || empty($posted['service_provider'])
+        ) {
+            $formError = 1;
+        } else {
+            //$posted['productinfo'] = json_encode(json_decode('[{"name":"tutionfee","description":"","value":"500","isRequired":"false"},{"name":"developmentfee","description":"monthly tution fee","value":"1500","isRequired":"false"}]'));
+            $hashVarsSeq = explode('|', $hashSequence);
+            $hash_string = '';	
+            foreach($hashVarsSeq as $hash_var) {
+            $hash_string .= isset($posted[$hash_var]) ? $posted[$hash_var] : '';
+            $hash_string .= '|';
+            }
+
+            $hash_string .= $SALT;
+
+
+            $hash = strtolower(hash('sha512', $hash_string));
+            $action = $PAYU_BASE_URL . '/_payment';
+        }
+    } 
+    elseif(!empty($posted['hash'])) 
+    {
+        $hash = $posted['hash'];
+        $action = $PAYU_BASE_URL . '/_payment';
+    }
+    
+?>  
     <!-- Modal -->
     <div class="modal fade" id="paynow-popup" tabindex="-1" role="dialog" aria-labelledby="paynow-popupLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -141,8 +161,18 @@ if(isset($_POST['form_submitted'])){
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post" >
+                    <form action="<?php echo $action?>" method="post" name="payuForm">
+                        <input type="hidden" name="surl" value="http://localhost:8888/sms/actions/success.php" size="64" />
+        
+		                <input type="hidden" name="furl" value="http://localhost:8888/sms/actions/failure.php" size="64" />
                         <input type="hidden" name="amount" readonly="readonly" value="500" />
+                        <input type="hidden" name="key" readonly="readonly" value="<?php echo $MERCHANT_KEY?>" />
+                        <input type="hidden" name="hash" readonly="readonly" value="<?php echo $hash?>" />
+                        <input type="hidden" name="txnid" readonly="readonly" value="<?php echo $txnid?>" />
+                        <input type="hidden" name="service_provider" readonly="readonly" value="payu_paisa" size="64"/>
+                        <input type="hidden" name="productinfo" readonly="readonly" value="Fee payment" />
+
+
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -175,7 +205,7 @@ if(isset($_POST['form_submitted'])){
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <button type="submit" name="form_submitted" class="btn btn-success">Confirm & Pay</button>
+                                    <button type="submit" class="btn btn-success">Confirm & Pay</button>
                                 </div>
                             </div>
                         </div>
@@ -193,5 +223,18 @@ if(isset($_POST['form_submitted'])){
             jQuery('#month').val(month)
         })
     </script>
-    
+    <script>
+    var hash = '<?php echo $hash ?>';
+    function submitPayuForm() {
+      if(hash == '') {
+        return;
+      }
+      var payuForm = document.forms.payuForm;
+      payuForm.submit();
+    }
+
+    jQuery(document).ready(function(){
+      submitPayuForm();
+    })
+  </script>
 <?php include('footer.php') ?>

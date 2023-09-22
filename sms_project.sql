@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Sep 19, 2023 at 03:40 PM
+-- Generation Time: Sep 22, 2023 at 02:18 PM
 -- Server version: 5.7.39
 -- PHP Version: 8.2.0
 
@@ -48,7 +48,7 @@ INSERT INTO `accounts` (`id`, `type`, `email`, `password`, `name`) VALUES
 (17, 'counseller', 'counseller@example.com', 'e807f1fcf82d132f9bb018ca6738a19f', 'Counseller'),
 (18, 'student', '', 'e807f1fcf82d132f9bb018ca6738a19f', ''),
 (19, 'student', 'asdf@asdf.asdf', '3ab8e8739c50726bceeb9a382e7e1959', 'Test User'),
-(20, 'student', 'modifiercrazy@gmail.com', '4c30e802c6107198a198ce5dff60b77f', 'Test user'),
+(20, 'student', 'modifiercrazy@gmail.com', '25f9e794323b453885f5181f1b624d0b', 'Test user'),
 (21, 'student', 'modifiercrazy-1@gmail.com', 'e807f1fcf82d132f9bb018ca6738a19f', 'Modifier Crazy'),
 (22, 'student', 'test@test.com', '1f9e8bd9a3168110f6bb119d11c4d75c', 'test-1'),
 (23, 'student', 'test-2@test.com', 'db5f7a798f3c5b8b1e21bd523a7b3563', 'test-2');
@@ -167,7 +167,11 @@ INSERT INTO `metadata` (`id`, `item_id`, `meta_key`, `meta_value`) VALUES
 (59, 23, 'teacher_id', '2'),
 (60, 23, 'period_id', '17'),
 (61, 23, 'day_name', 'monday'),
-(62, 23, 'subject_id', '19');
+(62, 23, 'subject_id', '19'),
+(63, 26, 'amount', '500'),
+(64, 26, 'status', 'success'),
+(65, 26, 'student_id', '20'),
+(66, 26, 'month', 'September');
 
 -- --------------------------------------------------------
 
@@ -206,7 +210,8 @@ INSERT INTO `posts` (`id`, `author`, `title`, `description`, `type`, `publish_da
 (20, 1, '', '', 'timetable', '2021-07-24 23:01:44', '2021-07-25 14:31:44', 'publish', 0),
 (21, 1, '', '', 'timetable', '2021-08-01 00:21:24', '2021-08-01 15:51:24', 'publish', 0),
 (22, 1, '', '', 'timetable', '2021-08-01 00:28:15', '2021-08-01 15:58:15', 'publish', 0),
-(23, 1, '', '', 'timetable', '2021-08-01 00:32:32', '2021-08-01 16:02:32', 'publish', 0);
+(23, 1, '', '', 'timetable', '2021-08-01 00:32:32', '2021-08-01 16:02:32', 'publish', 0),
+(26, 20, 'September - Fee', '', 'payment', '2023-09-21 20:11:58', '0000-00-00 00:00:00', 'success', 0);
 
 -- --------------------------------------------------------
 
@@ -332,13 +337,13 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `metadata`
 --
 ALTER TABLE `metadata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `sections`
