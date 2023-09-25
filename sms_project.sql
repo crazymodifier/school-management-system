@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Sep 22, 2023 at 02:18 PM
+-- Generation Time: Sep 24, 2023 at 07:54 AM
 -- Server version: 5.7.39
 -- PHP Version: 8.2.0
 
@@ -171,7 +171,11 @@ INSERT INTO `metadata` (`id`, `item_id`, `meta_key`, `meta_value`) VALUES
 (63, 26, 'amount', '500'),
 (64, 26, 'status', 'success'),
 (65, 26, 'student_id', '20'),
-(66, 26, 'month', 'September');
+(66, 26, 'month', 'September'),
+(67, 27, 'amount', '500'),
+(68, 27, 'status', 'success'),
+(69, 27, 'student_id', '20'),
+(70, 27, 'month', 'October');
 
 -- --------------------------------------------------------
 
@@ -211,7 +215,8 @@ INSERT INTO `posts` (`id`, `author`, `title`, `description`, `type`, `publish_da
 (21, 1, '', '', 'timetable', '2021-08-01 00:21:24', '2021-08-01 15:51:24', 'publish', 0),
 (22, 1, '', '', 'timetable', '2021-08-01 00:28:15', '2021-08-01 15:58:15', 'publish', 0),
 (23, 1, '', '', 'timetable', '2021-08-01 00:32:32', '2021-08-01 16:02:32', 'publish', 0),
-(26, 20, 'September - Fee', '', 'payment', '2023-09-21 20:11:58', '0000-00-00 00:00:00', 'success', 0);
+(26, 20, 'September - Fee', '', 'payment', '2023-09-21 20:11:58', '0000-00-00 00:00:00', 'success', 0),
+(27, 20, 'October - Fee', '', 'payment', '2023-09-23 18:53:49', '0000-00-00 00:00:00', 'success', 0);
 
 -- --------------------------------------------------------
 
@@ -337,13 +342,13 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `metadata`
 --
 ALTER TABLE `metadata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `sections`
