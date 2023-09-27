@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Sep 24, 2023 at 07:54 AM
+-- Generation Time: Sep 27, 2023 at 07:05 PM
 -- Server version: 5.7.39
 -- PHP Version: 8.2.0
 
@@ -40,7 +40,7 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`id`, `type`, `email`, `password`, `name`) VALUES
-(1, 'teacher', 'teacher.1@example.com', 'asdfasdfasdf', 'Teacher 1'),
+(1, 'teacher', 'teacher.1@example.com', '25f9e794323b453885f5181f1b624d0b', 'Teacher 1'),
 (2, 'teacher', 'teacher.2@example.com', 'adsfasdfdsfasdfaqsd', 'Teacher 2'),
 (3, 'student', 'sudent.1@example.com', '25f9e794323b453885f5181f1b624d0b', 'Student 1'),
 (15, 'admin', 'admin@technostudy.co.in', 'd100af17e9ab72768d551bcadeba2e59', 'Techno Study'),
@@ -52,6 +52,28 @@ INSERT INTO `accounts` (`id`, `type`, `email`, `password`, `name`) VALUES
 (21, 'student', 'modifiercrazy-1@gmail.com', 'e807f1fcf82d132f9bb018ca6738a19f', 'Modifier Crazy'),
 (22, 'student', 'test@test.com', '1f9e8bd9a3168110f6bb119d11c4d75c', 'test-1'),
 (23, 'student', 'test-2@test.com', 'db5f7a798f3c5b8b1e21bd523a7b3563', 'test-2');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attendance`
+--
+
+CREATE TABLE `attendance` (
+  `id` int(11) NOT NULL,
+  `attendance_month` text NOT NULL,
+  `attendance_value` longtext NOT NULL,
+  `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `std_id` int(11) NOT NULL,
+  `current_session` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `attendance`
+--
+
+INSERT INTO `attendance` (`id`, `attendance_month`, `attendance_value`, `modified_date`, `std_id`, `current_session`) VALUES
+(1, 'september', 'a:31:{i:1;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:1;}i:2;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:2;}i:3;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:3;}i:4;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:4;}i:5;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:5;}i:6;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:6;}i:7;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:7;}i:8;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:8;}i:9;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:9;}i:10;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:10;}i:11;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:11;}i:12;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:12;}i:13;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:13;}i:14;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:14;}i:15;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:15;}i:16;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:16;}i:17;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:17;}i:18;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:18;}i:19;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:19;}i:20;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:20;}i:21;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:21;}i:22;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:22;}i:23;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:23;}i:24;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:24;}i:25;a:3:{s:9:\"signin_at\";i:1695757080;s:10:\"signout_at\";i:1695757080;s:4:\"date\";i:25;}i:26;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:26;}i:27;a:3:{s:9:\"signin_at\";i:1695759821;s:10:\"signout_at\";i:1695759848;s:4:\"date\";s:2:\"27\";}i:28;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:28;}i:29;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:29;}i:30;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:30;}i:31;a:3:{s:9:\"signin_at\";s:0:\"\";s:10:\"signout_at\";s:0:\"\";s:4:\"date\";i:31;}}', '2023-09-27 01:54:08', 20, '2023-09-26 19:33:23');
 
 -- --------------------------------------------------------
 
@@ -175,7 +197,13 @@ INSERT INTO `metadata` (`id`, `item_id`, `meta_key`, `meta_value`) VALUES
 (67, 27, 'amount', '500'),
 (68, 27, 'status', 'success'),
 (69, 27, 'student_id', '20'),
-(70, 27, 'month', 'October');
+(70, 27, 'month', 'October'),
+(71, 28, 'class', ''),
+(72, 28, 'subject', ''),
+(73, 28, 'file_attachment', 'login.php'),
+(74, 29, 'class', '2'),
+(75, 29, 'subject', '19'),
+(76, 29, 'file_attachment', 'index.php');
 
 -- --------------------------------------------------------
 
@@ -216,7 +244,9 @@ INSERT INTO `posts` (`id`, `author`, `title`, `description`, `type`, `publish_da
 (22, 1, '', '', 'timetable', '2021-08-01 00:28:15', '2021-08-01 15:58:15', 'publish', 0),
 (23, 1, '', '', 'timetable', '2021-08-01 00:32:32', '2021-08-01 16:02:32', 'publish', 0),
 (26, 20, 'September - Fee', '', 'payment', '2023-09-21 20:11:58', '0000-00-00 00:00:00', 'success', 0),
-(27, 20, 'October - Fee', '', 'payment', '2023-09-23 18:53:49', '0000-00-00 00:00:00', 'success', 0);
+(27, 20, 'October - Fee', '', 'payment', '2023-09-23 18:53:49', '0000-00-00 00:00:00', 'success', 0),
+(28, 1, 'PDF for algebra', 'PDF for algebra', 'study-material', '2023-09-26 20:55:40', '0000-00-00 00:00:00', 'publish', 0),
+(29, 1, 'PDF for english', 'PDF for english', 'study-material', '2023-09-26 20:57:21', '0000-00-00 00:00:00', 'publish', 0);
 
 -- --------------------------------------------------------
 
@@ -281,6 +311,12 @@ ALTER TABLE `accounts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `attendance`
+--
+ALTER TABLE `attendance`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `classes`
 --
 ALTER TABLE `classes`
@@ -327,6 +363,12 @@ ALTER TABLE `accounts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
+-- AUTO_INCREMENT for table `attendance`
+--
+ALTER TABLE `attendance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
@@ -342,13 +384,13 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `metadata`
 --
 ALTER TABLE `metadata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `sections`

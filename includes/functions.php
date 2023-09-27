@@ -2,7 +2,7 @@
 
 function get_the_teachers($args)
 {
-    return $output;
+    return $args;
 }
 
 function get_the_classes()
