@@ -239,6 +239,8 @@ if (isset( $_GET['action'] ) && $_GET['action'] == 'view') { ?>
                                 <th>S.No</th>
                                 <th>Month</th>
                                 <th>Fee Status</th>
+
+                                
                                 <th>Action</th>
                             </tr>
                         </thead>
