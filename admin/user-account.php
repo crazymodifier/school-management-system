@@ -167,7 +167,7 @@ i.fas.fa-circle-notch.fa-spin {
                       <div class="col-lg-6">
                         <div class="form-group">
                           <label for="">Mothers's Mobile</label>
-                          <input type="text" class="form-control" placeholder="Mothers's Mobile" name="mother_mobiler">
+                          <input type="text" class="form-control" placeholder="Mothers's Mobile" name="mother_mobile">
                         </div>
                       </div>
                       <!-- Address Fields -->
@@ -247,7 +247,21 @@ i.fas.fa-circle-notch.fa-spin {
                       <div class="col-lg">
                         <div class="form-group">
                           <label for="">Class</label>
-                          <input type="text" class="form-control" placeholder="Class" name="class">
+                          <!-- <input type="text" class="form-control" placeholder="Class" name="class"> -->
+
+                          <select name="class" id="class" class="form-control">
+                            <option value="">Select Class</option>
+                          <?php
+                          $args = array(
+                            'type' => 'class',
+                            'status' => 'publish',
+                          );
+                          $classes = get_posts($args);
+                          foreach($classes as $class){
+                            echo '<option value="'.$class->id.'">'.$class->title.'</option>';
+                          }?>
+
+                          </select>
                         </div>
                       </div>
                       <div class="col-lg">
@@ -354,7 +368,7 @@ i.fas.fa-circle-notch.fa-spin {
 
       jQuery.ajax({
         type: "post",
-        url: "http://localhost/sms/actions/student-registration.php",
+        url: "http://localhost/sms-project/actions/student-registration.php",
         data: formdata,
         dataType : 'json',
         beforeSend: function(){
@@ -364,7 +378,7 @@ i.fas.fa-circle-notch.fa-spin {
           console.log(response);
           if(response.success == true)
           {
-            location.href = 'http://localhost/sms/admin/user-account.php?user=student&action=fee-payment&std_id='+response.std_id+'&payment_method='+response.payment_method;
+            location.href = 'http://localhost/sms-project/admin/user-account.php?user=student&action=fee-payment&std_id='+response.std_id+'&payment_method='+response.payment_method;
           }
         },
         complete: function(){
