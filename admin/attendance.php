@@ -28,7 +28,6 @@
 
             <?php
             $usermeta = get_user_metadata($std_id);
-            $class = get_post(['id' => $usermeta['class']]);
             ?>
             <div class="card">
                 <div class="card-header">
@@ -36,7 +35,7 @@
                 </div>
                 <div class="card-body">
                     <strong>Name: </strong> <?php echo get_users(array('id' => $std_id))[0]->name ?> <br>
-                    <strong>Class: </strong> <?php echo $class->title ?>
+                    <strong>Class: </strong> <?php echo $usermeta['class'] ?>
 
                 </div>
             </div>
