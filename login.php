@@ -7,7 +7,7 @@
           <form action="actions/login.php" method="POST">
             <!-- Material input -->
                 <div class="md-form">
-                  <input type="email" id="email" name="email" class="form-control">
+                  <input type="text" id="email" name="email" class="form-control">
                   <label for="email">Your Email</label>
                 </div>
                 <!-- Material input -->

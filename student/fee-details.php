@@ -38,7 +38,7 @@ if (isset($_POST['form_submitted'])) {
     $success_msg = true;
 }
 
-if (isset( $_GET['action'] ) && $_GET['action'] == 'view') { ?>
+if (isset( $_GET['action'] ) && $_GET['action'] == 'view-invoice') { ?>
 
 
     <div class="container">
@@ -49,11 +49,11 @@ if (isset( $_GET['action'] ) && $_GET['action'] == 'view') { ?>
                         <div class="invoice-title">
                             <h4 class="float-end font-size-15">Invoice #DS0204 <span class="badge bg-success font-size-12 ms-2">Paid</span></h4>
                             <div class="mb-4">
-                                <h2 class="mb-1 text-muted">Bootdey.com</h2>
+                                <h2 class="mb-1 text-muted">Techno Study</h2>
                             </div>
                             <div class="text-muted">
-                                <p class="mb-1">3184 Spruce Drive Pittsburgh, PA 15201</p>
-                                <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i> xyz@987.com</p>
+                                <p class="mb-1">Vishwsh khand, Gomtinagar, Lucknow, UP 231216, India</p>
+                                <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i>modifiercrazy@gmail.com</p>
                                 <p><i class="uil uil-phone me-1"></i> 012-345-6789</p>
                             </div>
                         </div>
@@ -99,10 +99,8 @@ if (isset( $_GET['action'] ) && $_GET['action'] == 'view') { ?>
                                     <thead>
                                         <tr>
                                             <th style="width: 70px;">No.</th>
-                                            <th>Item</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th class="text-end" style="width: 120px;">Total</th>
+                                            <th>Fees</th>
+                                            <th class="text-end" style="width: 120px;">Price</th>
                                         </tr>
                                     </thead><!-- end thead -->
                                     <tbody>
@@ -110,55 +108,23 @@ if (isset( $_GET['action'] ) && $_GET['action'] == 'view') { ?>
                                             <th scope="row">01</th>
                                             <td>
                                                 <div>
-                                                    <h5 class="text-truncate font-size-14 mb-1">Black Strap A012</h5>
-                                                    <p class="text-muted mb-0">Watch, Black</p>
+                                                    <h5 class="text-truncate font-size-14 mb-1">Tuition Fee</h5>
+                                                    <!-- <p class="text-muted mb-0">Watch, Black</p> -->
                                                 </div>
                                             </td>
-                                            <td>$ 245.50</td>
-                                            <td>1</td>
-                                            <td class="text-end">$ 245.50</td>
+                                            <td class="text-end">Rs. 500.00</td>
                                         </tr>
                                         <!-- end tr -->
                                         <tr>
-                                            <th scope="row">02</th>
-                                            <td>
-                                                <div>
-                                                    <h5 class="text-truncate font-size-14 mb-1">Stainless Steel S010</h5>
-                                                    <p class="text-muted mb-0">Watch, Gold</p>
-                                                </div>
-                                            </td>
-                                            <td>$ 245.50</td>
-                                            <td>2</td>
-                                            <td class="text-end">$491.00</td>
+                                            <th scope="row" colspan="2" class="text-end">Sub Total</th>
+                                            <td class="text-end">Rs. 500.00</td>
                                         </tr>
+                                        
                                         <!-- end tr -->
                                         <tr>
-                                            <th scope="row" colspan="4" class="text-end">Sub Total</th>
-                                            <td class="text-end">$732.50</td>
-                                        </tr>
-                                        <!-- end tr -->
-                                        <tr>
-                                            <th scope="row" colspan="4" class="border-0 text-end">
-                                                Discount :</th>
-                                            <td class="border-0 text-end">- $25.50</td>
-                                        </tr>
-                                        <!-- end tr -->
-                                        <tr>
-                                            <th scope="row" colspan="4" class="border-0 text-end">
-                                                Shipping Charge :</th>
-                                            <td class="border-0 text-end">$20.00</td>
-                                        </tr>
-                                        <!-- end tr -->
-                                        <tr>
-                                            <th scope="row" colspan="4" class="border-0 text-end">
-                                                Tax</th>
-                                            <td class="border-0 text-end">$12.00</td>
-                                        </tr>
-                                        <!-- end tr -->
-                                        <tr>
-                                            <th scope="row" colspan="4" class="border-0 text-end">Total</th>
+                                            <th scope="row" colspan="2" class="border-0 text-end">Total</th>
                                             <td class="border-0 text-end">
-                                                <h4 class="m-0 fw-semibold">$739.00</h4>
+                                                <h4 class="m-0 fw-semibold">Rs. 500.00</h4>
                                             </td>
                                         </tr>
                                         <!-- end tr -->

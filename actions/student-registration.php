@@ -101,6 +101,32 @@ if(isset($_POST['type']) && $_POST['type'] == 'student' && isset($_POST['email']
         mysqli_query($db_conn, "INSERT INTO `attendance` (`attendance_month`,`attendance_value`,`std_id`) VALUES ('$value','$att_data','$user_id')") or die(mysqli_error($db_conn));
     }
 
+
+    // Parent registration
+    $check_query = mysqli_query($db_conn, "SELECT * FROM accounts WHERE email = '$father_mobile'");
+    if(mysqli_num_rows($check_query) > 0)
+    {
+        $parent = mysqli_fetch_object(mysqli_query($db_conn,"SELECT * FROM `accounts` as a JOIN `usermeta` as m ON a.id = m.user_id WHERE a.type = 'parent' AND a.email = '$father_mobile' AND m.meta_key = 'children';"));
+        // $error = 'Email already exists';
+        // echo 'Email already exists';die;
+        $children = unserialize($parent->meta_value);
+        $children[] = $user_id;
+        $children = serialize($children);
+        $query = mysqli_query($db_conn, "UPDATE `usermeta` SET `meta_value` = '$children' WHERE meta_key = 'children' ")or die(mysqli_error($db_conn));;
+    }
+    else
+    {    
+        $md_password = md5($father_mobile);
+        $query = mysqli_query($db_conn, "INSERT INTO accounts (`name`,`email`,`password`,`type`) VALUES ('$father_name','$father_mobile','$md_password','parent')") or die(mysqli_error($db_conn));
+        if($query)
+        {
+            $parent_id = mysqli_insert_id($db_conn);
+        }
+        $chld = [$user_id];
+        $chld = serialize($chld);
+        mysqli_query($db_conn, "INSERT INTO usermeta (`user_id`,`meta_key`,`meta_value`) VALUES ('$parent_id','children','$chld')") or die(mysqli_error($db_conn));
+    }
+
     $response = array(
         'success' => TRUE,
         'payment_method' => $payment_method,
