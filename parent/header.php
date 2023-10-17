@@ -3,7 +3,7 @@
  $site_url = 'http://localhost/sms-project/';
   if(isset($_SESSION['login']))
   {
-    if(isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'student')
+    if(isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'parent')
     {
       $user_type = $_SESSION['user_type'];
       header('Location: /sms-project/'.$user_type.'/dashboard.php');
@@ -16,8 +16,7 @@
   }
 
   $std_id = $_SESSION['user_id'];
-  $student = get_user_data($std_id);
-  $stdmeta = get_user_metadata($std_id);
+  $parent = get_user_data($std_id);
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +26,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>Student | Dashboard </title>
+  <title>Parent | Dashboard </title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">

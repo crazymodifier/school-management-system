@@ -5,25 +5,12 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <!-- <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li> -->
+        <a href="profile.php" class="nav-link">Profile</a>
+      </li>
     </ul>
 
-    <!-- SEARCH FORM -->
-    <!-- <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form> -->
+
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -124,10 +111,10 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="<?=$site_url?>/admin/dashboard.php" class="brand-link">
+    <a href="<?=$site_url?>" class="brand-link">
       <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">SMS Admin</span>
+      <span class="brand-text font-weight-light">Parent Panel</span>
     </a>
 
     <!-- Sidebar -->
@@ -136,93 +123,37 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Dashboard -->
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="<?=$site_url?>admin/dashboard.php" class="nav-link">
+            <a href="<?=$site_url?>teacher/dashboard.php" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Dashboard</p>
             </a>
           </li>
-          <!-- Accounts -->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
-              <p>
-                Manage Accounts
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/user-account.php?user=counseller" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Counseller</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/user-account.php?user=teacher" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Teachers</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/user-account.php?user=student" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Students</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/user-account.php?user=parent" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Parents</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/user-account.php?user=librarian" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Librarian</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <!-- Manage Classes -->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chalkboard"></i>
               <p>
                 Manage Classes
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
-              
               <li class="nav-item">
-                <a href="<?=$site_url?>admin/sections.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Sections</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/classes.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Classes</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/courses.php" class="nav-link">
+                <a href="<?=$site_url?>teacher/courses.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Courses</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?=$site_url?>admin/subjects.php" class="nav-link">
+                <a href="<?=$site_url?>teacher/subjects.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Subects</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?=$site_url?>admin/lessons.php" class="nav-link">
+                <a href="<?=$site_url?>teacher/lessons.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Lessons</p>
                 </a>
@@ -230,10 +161,9 @@
             </ul>
           </li>
           
-          <!-- Class Routine -->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chalkboard-teacher"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Manage Class Routines
                 <i class="fas fa-angle-left right"></i>
@@ -241,61 +171,31 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?=$site_url?>admin/periods.php" class="nav-link">
+                <a href="<?=$site_url?>teacher/periods.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Periods</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?=$site_url?>admin/timetable.php" class="nav-link">
+                <a href="<?=$site_url?>teacher/timetable.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Time Table</p>
                 </a>
               </li>
             </ul>
           </li>
-
-          <!-- Examination -->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-file-alt"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Manage Examinations
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/exam-form.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Examination Form</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/admin-card.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Admin card</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/paper-schedule.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Paper Schedule</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/results.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Results</p>
-                </a>
-              </li>
-            </ul>
           </li>
-
-          <!-- Attendance -->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-calendar-alt"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Manage Attendance
                 <i class="fas fa-angle-left right"></i>
@@ -303,43 +203,33 @@
             </a>       
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?=$site_url?>admin/attendance.php" class="nav-link">
+                <a href="<?=$site_url?>teacher/attendance.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Attendance</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/leave.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Leave</p>
-                </a>
-              </li>
             </ul>       
           </li>
-
-          <!-- Manage Accounts -->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-money-check"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
-                Manage Accountings
+                Fee Details
                 <i class="fas fa-angle-left right"></i>
               </p>
-            </a>
+            </a>    
             <ul class="nav nav-treeview">
-              
               <li class="nav-item">
-                <a href="<?=$site_url?>admin/student-fee.php" class="nav-link">
+                <a href="<?=$site_url?>teacher/fee-details.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Student Fee Details</p>
+                  <p>Fee Details</p>
                 </a>
               </li>
-            </ul>
+            </ul>        
           </li>
-          <!-- Study Materials -->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-paste"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Study Materials
                 <i class="fas fa-angle-left right"></i>
@@ -347,39 +237,22 @@
             </a>  
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?=$site_url?>admin/study-materials.php" class="nav-link">
+                <a href="<?=$site_url?>teacher/study-materials.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Study Materials</p>
+                  <p>Study Mterials</p>
                 </a>
               </li>
-            </ul>           
+            </ul>              
           </li>
-
-          <!-- Event -->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-calendar-check"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Manage Events
                 <i class="fas fa-angle-left right"></i>
               </p>
-            </a>     
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/campus-functions.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Campus Functions</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/webinar-seminar.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Webinar/Seminar</p>
-                </a>
-              </li>
-            </ul>        
+            </a>            
           </li>
-          <!-- Communication -->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
@@ -387,34 +260,7 @@
                 Communications
                 <i class="fas fa-angle-left right"></i>
               </p>
-            </a>    
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/parent-meeting.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Parent's Meetings</p>
-                </a>
-              </li>
-            </ul>          
-          </li>
-
-          <!-- Acadmy Settings -->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Acadmy Settings
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>    
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/acadamy-settings/basic-information.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Basic Informations</p>
-                </a>
-              </li>
-            </ul>          
+            </a>            
           </li>
         </ul>
       </nav>
