@@ -84,8 +84,6 @@
         </div>
         <!-- /.row -->
         <hr>
-
-        
       </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->

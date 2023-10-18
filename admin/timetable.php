@@ -237,8 +237,9 @@ if(isset($_POST['submit']))
                                             <p>
                                                 <b>Teacher: </b> 
                                                 <?php 
-                                                $teacher_id = get_metadata($timetable->item_id,'teacher_id',)[0]->meta_value;
-                                                echo get_user_data($teacher_id)[0]->name;
+                                                $teacher_id = get_metadata($timetable->item_id,'teacher_id')[0]->meta_value;
+                                                
+                                                echo get_user_data($teacher_id)->name;
                                                 ?> 
                                                 
                                                 
