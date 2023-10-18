@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Oct 17, 2023 at 07:03 PM
+-- Generation Time: Oct 18, 2023 at 08:08 PM
 -- Server version: 5.7.39
 -- PHP Version: 8.2.0
 
@@ -185,7 +185,17 @@ INSERT INTO `classes` (`id`, `title`, `section`, `added_date`) VALUES
 (2, 'Class-2', '1', '2020-10-03'),
 (3, 'Class-3', '1,2,3', '2020-10-03'),
 (4, 'dsafsd', '1,2', '2021-02-06'),
-(5, 'sadsad', '2', '2021-02-06');
+(5, 'sadsad', '2', '2021-02-06'),
+(6, '3', '1', '2023-10-19'),
+(7, '4', '1,2', '2023-10-19'),
+(8, '5', '1,2,3,4', '2023-10-19'),
+(9, '6', '1,2', '2023-10-19'),
+(10, '7', '1', '2023-10-19'),
+(11, '8', '1', '2023-10-19'),
+(12, '9', '1,2', '2023-10-19'),
+(13, '10', '1,2', '2023-10-19'),
+(14, '11', '1,2,3,4', '2023-10-19'),
+(15, '12', '1,2,3,4', '2023-10-19');
 
 -- --------------------------------------------------------
 
@@ -599,7 +609,7 @@ ALTER TABLE `attendance`
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `courses`
