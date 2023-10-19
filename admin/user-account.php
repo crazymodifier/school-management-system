@@ -327,7 +327,7 @@ i.fas.fa-circle-notch.fa-spin {
           </div>
         <div class="card-body">
           <div class="table-responsive bg-white">
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="users-table">
               <thead>
                 <tr>
                   <th>S.No.</th>
@@ -369,9 +369,23 @@ i.fas.fa-circle-notch.fa-spin {
 <!-- /.content -->
 
 <script>
-  // jQuery(document).ready(function(){
-
-  // })
+  jQuery(document).ready(function(){
+    jQuery('#users-table').DataTable({
+      ajax: {
+        url: 'ajax.php?user="<?php echo $_GET['user']?>"',
+        type: 'POST'
+      },
+      columns: [
+          { data: 'serial' },
+          { data: 'name' },
+          { data: 'email' },
+          { data: 'action' ,orderable: false}
+      ],
+      processing: true,
+      serverSide: true,
+      
+    });
+  })
 
   jQuery('#student-registration').on('submit', function() {
     console.log();
