@@ -6,10 +6,17 @@
 if (isset($_POST['submit'])) {
   $title = $_POST['title'];
 
-  $sections = implode(',', $_POST['section']);
+  $sections = $_POST['section'];
+  // $added_date = date('Y-m-d');
+  $query = mysqli_query($db_conn, "INSERT INTO `posts`(`author`, `title`, `description`, `type`, `status`,`parent`) VALUES ('1','$title','description','class','publish',0)") or die('DB error');
 
-  $added_date = date('Y-m-d');
-  mysqli_query($db_conn, "INSERT INTO classes(title,section,added_date) VALUE ('$title','$sections','$added_date')") or die('DB error');
+  if($query)
+  {
+    $post_id = mysqli_insert_id($db_conn);
+  }
+  foreach ($sections as $key => $value) {
+    mysqli_query($db_conn, "INSERT INTO `metadata` (`item_id`,`meta_key`,`meta_value`) VALUES ('$post_id','section','$value')") or die(mysqli_error($db_conn));
+  }
 }
 
 ?>
@@ -50,24 +57,19 @@ if (isset($_POST['submit'])) {
             <div class="form-group">
               <label for="title">Sections</label>
               <?php
-              $query = mysqli_query($db_conn, 'SELECT * FROM sections');
-              $count = 1;
-              while ($sections = mysqli_fetch_object($query)) { ?>
-                <!-- <div>
-                  <label for="<?= $count++ ?>">
-                      <input type="checkbox"  name="section[]" id="<?= $count++ ?>" value="<?= $sections->id ?>" placeholder="section">
-                      <?= $sections->title ?> 
-                  </label>
-                </div> -->
-
+              $args = array(
+                'type' => 'section',
+                'status' => 'publish',
+              );
+              $sections = get_posts($args);
+              foreach($sections as $key => $section){ ?>
                 <div>
-                  <label for="<?php echo $count++ ?>">
-                    <input type="checkbox" name="section[]" id="<?php echo $count++ ?>" value="<?= $sections->id ?>" placeholder="section">
-                    <?php echo $sections->title ?>
+                  <label for="<?php echo $key ?>">
+                    <input type="checkbox" name="section[]" id="<?php echo $key ?>" value="<?= $section->id ?>" placeholder="section">
+                    <?php echo $section->title ?>
                   </label>
                 </div>
               <?php
-                $count++;
               } ?>
             </div>
             <button name="submit" class="btn btn-success">Submit</button>
@@ -105,7 +107,7 @@ if (isset($_POST['submit'])) {
                 foreach ($classes as $class) { ?>
                   <tr>
                     <td><?= $count++ ?></td>
-                    <td><?= $class->title ?></td>
+                    <td>Class <?= $class->title ?></td>
                     <td>
                       <?php
                       $class_meta = get_metadata($class->id, 'section');

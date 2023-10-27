@@ -8,7 +8,7 @@
   {
     $title = $_POST['title'];
 
-    mysqli_query($db_conn, "INSERT INTO sections (title) VALUE ('$title')") or die('asfdasf');
+    $query = mysqli_query($db_conn, "INSERT INTO `posts`(`author`, `title`, `description`, `type`, `status`,`parent`) VALUES ('1','$title','description','section','publish',0)") or die('DB error');
   }
 
 ?>

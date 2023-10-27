@@ -13,8 +13,9 @@ if(isset($_POST['submit']))
     $status = 'publish';
     $author = 1;
     $type = 'timetable';
-
-    $query = mysqli_query($db_conn, "INSERT INTO posts (`type`,`author`,`status`,`publish_date`) VALUES ('$type','$author','$status','$date_add')");
+    // $title = 
+    // $query = mysqli_query($db_conn, "INSERT INTO posts (`type`,`author`,`status`,`publish_date`) VALUES ('$type','$author','$status','$date_add')");
+    $query = mysqli_query($db_conn, "INSERT INTO `posts`(`author`, `title`, `description`, `type`, `status`,`parent`) VALUES ('1','$type','description','timetable','publish',0)") or die('DB error');
     if($query)
     {
         $item_id = mysqli_insert_id($db_conn);
@@ -156,40 +157,53 @@ if(isset($_POST['submit']))
             </div>
         </div>
         <?php } else {?>
-        <div class="card">
-            <div class="card-body">
-                <form action="">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="class">Select Class</label>
-                                <select require name="class" id="class" class="form-control">
-                                    <option value="">-Select Class-</option>
-                                    <?php
-                                    $args = array(
-                                      'type' => 'class',
-                                      'status' => 'publish',
-                                    );
-                                    $classes = get_posts($args); 
-                                    foreach ($classes as $key => $class) { ?>
-                                    <option value="<?php echo $class->id ?>"><?php echo $class->title ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group" id="section-container">
-                                <label for="section">Select Section</label>
-                                <select require name="section" id="section" class="form-control">
-                                    <option value="">-Select Section-</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
 
+        <form action="" method="get">
+            <?php
+            $class_id = isset($_GET['class'])?$_GET['class']:43;
+            $section_id = isset($_GET['section'])?$_GET['section']:3;
+            ?>
+            <div class="row">
+                <div class="col-auto">
+                    <div class="form-group">
+                        <select name="class" id="class" class="form-control">
+                            <option value="">Select Class</option>
+                            <?php
+                            $args = array(
+                            'type' => 'class',
+                            'status' => 'publish',
+                            );
+                            $classes = get_posts($args);
+                            foreach ($classes as $class) {
+                                $selected = ($class_id ==  $class->id)? 'selected': '';
+                                echo '<option value="' . $class->id . '" '.$selected.'>' . $class->title . '</option>';
+                            } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="form-group" id="section-container">
+                        <select name="section" id="section" class="form-control">
+                            <option value="">Select Section</option>
+                            <?php
+                            $args = array(
+                            'type' => 'section',
+                            'status' => 'publish',
+                            );
+                            $sections = get_posts($args);
+                            foreach ($sections as $section) {
+                                $selected = ($section_id ==  $section->id)? 'selected': '';
+                            echo '<option value="' . $section->id . '" '.$selected.'>' . $section->title . '</option>';
+                            } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary">Apply</button>
+                </div>
+            </div>
+
+        </form>
 
         <div class="card">
             <div class="card-body">
@@ -224,9 +238,17 @@ if(isset($_POST['submit']))
                             <?php 
 
                             $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+                            
                             foreach($days as $day){ 
-                                $query = mysqli_query($db_conn, "SELECT * FROM posts as p INNER JOIN metadata as md ON (md.item_id = p.id) INNER JOIN metadata as mp ON (mp.item_id = p.id) WHERE p.type = 'timetable' AND p.status = 'publish' AND md.meta_key = 'day_name' AND md.meta_value = '$day' AND mp.meta_key = 'period_id' AND mp.meta_value = $period->id");
+                                $query = mysqli_query($db_conn, "SELECT * FROM posts as p 
+                                INNER JOIN metadata as md ON (md.item_id = p.id) 
+                                INNER JOIN metadata as mp ON (mp.item_id = p.id) 
+                                INNER JOIN metadata as mc ON (mc.item_id = p.id) 
+                                INNER JOIN metadata as ms ON (ms.item_id = p.id) 
+                                WHERE p.type = 'timetable' AND p.status = 'publish' AND md.meta_key = 'day_name' AND md.meta_value = '$day' AND mp.meta_key = 'period_id' AND mp.meta_value = $period->id AND mc.meta_key = 'class_id' AND mc.meta_value = $class_id AND ms.meta_key = 'section_id' AND ms.meta_value = $section_id");
 
+                
+                                
                                 if(mysqli_num_rows($query) > 0)
                                 {
                                     while($timetable = mysqli_fetch_object($query)) {

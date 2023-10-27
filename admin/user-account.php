@@ -327,36 +327,16 @@ i.fas.fa-circle-notch.fa-spin {
           </div>
         <div class="card-body">
           <div class="table-responsive bg-white">
-            <table class="table table-bordered" id="users-table">
+            <table class="table table-bordered" id="users-table" width="100%">
               <thead>
                 <tr>
-                  <th>S.No.</th>
+                  <th width="50">ID</th>
                   <th>Name</th>
-                  <th>Email</th>
+                  <th>email</th>
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
-                <?php
-
-                $count = 1;
-                $user_query = 'SELECT * FROM accounts WHERE `type` = "' . $_REQUEST['user'] . '"';
-                $user_result = mysqli_query($db_conn, $user_query);
-                while ($users = mysqli_fetch_object($user_result)) {
-
-                ?>
-                  <tr>
-                    <td><?= $count++ ?></td>
-                    <td><?= $users->name ?></td>
-                    <td><?= $users->email ?></td>
-                    <td>
-                      <a href="#" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
-                      <a href="#" class="btn btn-sm btn-info"><i class="fa fa-pencil-alt"></i></a>
-                      <a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
-                    </td>
-                  </tr>
-                <?php } ?>
-              </tbody>
+              
             </table>
 
           </div>
@@ -372,7 +352,7 @@ i.fas.fa-circle-notch.fa-spin {
   jQuery(document).ready(function(){
     jQuery('#users-table').DataTable({
       ajax: {
-        url: 'ajax.php?user="<?php echo $_GET['user']?>"',
+        url: 'ajax.php?user=<?php echo $_GET['user']?>',
         type: 'POST'
       },
       columns: [

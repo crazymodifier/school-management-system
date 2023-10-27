@@ -17,8 +17,8 @@ if(isset($_POST['class_id']) && $_POST['class_id'])
     echo json_encode($output);
     die;
 }
-
-$query = mysqli_query($db_conn,"SELECT * FROM `accounts` WHERE `type` = {$_GET['user']}");
+$type = $_GET['user'];
+$query = mysqli_query($db_conn,"SELECT * FROM `accounts` WHERE `type` = '$type'");
 
 $data = [
     "draw"=> $_POST['draw'],
@@ -32,15 +32,17 @@ $offset = $_POST['start'];
 $column = $_POST['order'][0]['column'];
 $dir = $_POST['order'][0]['dir'];
 $order_by = ($column == 0)? 'id': $_POST['columns'][$column]['data'];
-$query = mysqli_query($db_conn,"SELECT * FROM `accounts` WHERE `type` = {$_GET['user']} ORDER BY `$order_by` $dir LIMIT $offset,$limit ");
+$query = mysqli_query($db_conn,"SELECT * FROM `accounts` WHERE `type` = '$type' ORDER BY `$order_by` $dir LIMIT $offset,$limit ");
 
 $i = 1;
 while ($row = mysqli_fetch_object($query)) {
+    $usermeta = get_user_metadata($row->id);
     $data['data'][] = [
-        'serial' => $i++,
+        'serial' => '#STD-'.$row->id,
         'name' => $row->name,
         'email' =>$row->email,
-        'action' => '<a href="#" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
+        'action' => 
+        '<a href="#" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
         <a href="#" class="btn btn-sm btn-info"><i class="fa fa-pencil-alt"></i></a>
         <a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>',
     ];
