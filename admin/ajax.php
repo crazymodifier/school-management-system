@@ -18,7 +18,9 @@ if(isset($_POST['class_id']) && $_POST['class_id'])
     die;
 }
 $type = $_GET['user'];
-$query = mysqli_query($db_conn,"SELECT * FROM `accounts` WHERE `type` = '$type'");
+$sql = "SELECT * FROM `accounts` WHERE `type` = '$type'";
+
+$query = mysqli_query($db_conn,$sql);
 
 $data = [
     "draw"=> $_POST['draw'],
@@ -37,14 +39,58 @@ $query = mysqli_query($db_conn,"SELECT * FROM `accounts` WHERE `type` = '$type' 
 $i = 1;
 while ($row = mysqli_fetch_object($query)) {
     $usermeta = get_user_metadata($row->id);
-    $data['data'][] = [
-        'serial' => '#STD-'.$row->id,
-        'name' => $row->name,
-        'email' =>$row->email,
-        'action' => 
-        '<a href="#" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
-        <a href="#" class="btn btn-sm btn-info"><i class="fa fa-pencil-alt"></i></a>
-        <a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>',
-    ];
+
+    switch ($type) {
+        case 'student':
+            $class = get_post(array('id'=> $usermeta['class']))->title;
+            $section = get_post(array('id'=> intval($usermeta['section'])))->title;
+            $class = 'Class-'.$class.' ('.$section.')';
+            $data['data'][] = [
+                'enroll' => 'E-'.date('Y',strtotime($usermeta['doa'])).date('dm',strtotime($usermeta['dob'])).$row->id,
+                'class' => $class,
+                'photo' => '<img class="border" src="http://localhost/sms-project/dist/img/AdminLTELogo.png" width="40" height="40">',
+                'name' => $row->name,
+                'dob' =>$usermeta['dob'],
+                'father_name' =>$usermeta['father_name'],
+                'mother_name' =>$usermeta['mother_name'],
+                'doa' =>$usermeta['doa'],
+                'address' =>$usermeta['address'],
+                'action' => 
+                '<a href="#" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                <a href="#" class="btn btn-sm btn-info"><i class="fa fa-pencil-alt"></i></a>
+                <a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>',
+            ];
+            break;
+        case 'teacher':
+            $data['data'][] = [
+                'emp_id' => 'E-'.$row->id,
+                'photo' => '<img class="border" src="http://localhost/sms-project/dist/img/AdminLTELogo.png" width="40" height="40">',
+                'name' => $row->name,
+                'subjects' =>$row->name,
+                'doj' =>$row->name,
+                'address' =>$row->name,
+                'action' => 
+                '<a href="#" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                <a href="#" class="btn btn-sm btn-info"><i class="fa fa-pencil-alt"></i></a>
+                <a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>',
+            ];
+            break;
+        case 'parent':
+            $data['data'][] = [
+                'name' => $row->name,
+                'children' =>$row->name,
+                'address' =>$row->name,
+                'action' => 
+                '<a href="#" class="btn btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                <a href="#" class="btn btn-sm btn-info"><i class="fa fa-pencil-alt"></i></a>
+                <a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>',
+            ];
+            break;
+        default:
+            $data['data'] = [];
+            break;
+    }
+    
 }
+// }
 echo json_encode($data);die;

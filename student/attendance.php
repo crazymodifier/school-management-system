@@ -59,7 +59,7 @@
                         <?php
                             $current_month = strtolower(date('F'));
                             $current_year = date('Y');
-                            $sql = "SELECT * FROM `attendance` WHERE `attendance_month` = '$current_month' AND year(current_session) = $current_year";
+                            $sql = "SELECT * FROM `attendance` WHERE `attendance_month` = '$current_month' AND year(current_session) = $current_year AND std_id = $std_id";
 
                             $query = mysqli_query($db_conn, $sql);
 
