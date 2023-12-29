@@ -1,5 +1,9 @@
 <?php
 
+
+
+
+
   $db_conn = mysqli_connect('localhost', 'root', 'SPZ<d£58L7M3','sms_project');
 
   if (!$db_conn) {
