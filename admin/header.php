@@ -1,17 +1,19 @@
 <?php
- //session_start();
-  $site_url = 'http://localhost/sms-project/';
+  
+  $site_url = site_url();
   if(isset($_SESSION['login']) && $_SESSION['login'] == TRUE)
   {
     if(isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'admin')
     {
       $user_type = $_SESSION['user_type'];
-      header('Location: /sms-project/'.$user_type.'/dashboard.php');
+      header('Location: '.$site_url.$user_type.'/dashboard.php');
+      exit();
     }
   }
   else 
   {
     header('Location:'.$site_url.'login.php');
+    exit();
   }
 ?>
 

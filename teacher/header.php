@@ -1,20 +1,19 @@
 <?php
- //session_start();
- $site_url = 'http://localhost/sms-project/';
+  $site_url = site_url();
   if(isset($_SESSION['login']))
   {
     if(isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'teacher')
     {
       $user_type = $_SESSION['user_type'];
-      header('Location: /sms-project/'.$user_type.'/dashboard.php');
+      header('Location: '.$site_url.$user_type.'/dashboard.php');
+      exit();
     }
   }
   else 
   {
-    
-    header('Location: ../login.php');
+    header('Location:'.$site_url.'login.php');
+    exit();
   }
-
   $std_id = $_SESSION['user_id'];
   $student = get_user_data($std_id);
 ?>
