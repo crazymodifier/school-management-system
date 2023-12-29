@@ -33,6 +33,10 @@
   <link rel="stylesheet" href="<?php echo $site_url;?>plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="<?php echo $site_url;?>plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
+  <link rel="stylesheet" href="<?php echo $site_url;?>plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="<?php echo $site_url;?>plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
+  <link rel="stylesheet" href="<?php echo $site_url;?>plugins/calendar/zabuto_calendar.min.css">
 
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo $site_url;?>dist/css/adminlte.min.css">

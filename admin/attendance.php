@@ -1,4 +1,4 @@
-<?php include('../includes/config.php') ?>
+<?php include('../includes/config.php');?>
 <?php include('header.php') ?>
 <?php include('sidebar.php') ?>
 
@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Manage Student Attendance</h1>
+                <h1 class="m-0 text-dark">Manage Attendance</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -21,122 +21,157 @@
     </div><!-- /.container-fluid -->
 </div>
 <!-- /.content-header -->
-<?php
-$current_month = strtolower(date('F'));
-$current_year = date('Y');
-
-?>
 <!-- Main content -->
 <section class="content">
-        <div class="container-fluid">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <form action="" method="get" id="get_user_attendance">
+                    <div class="row">
+                        
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="">User Tpye</label>
+                                <select name="user_type" id="user_type" class="form-control">
+                                    <option value="">-Select Type-</option>
+                                    <option value="student">Student</option>
+                                    <option value="teacher">Teacher</option>
+                                    <option value="counseller">Counseller</option>
+                                    <option value="ohter">Other</option>
+                                </select>
+                            </div>
+                        </div>
 
-            <form action="" method="get">
-                <div class="row">
-                    <div class="col-auto">
-                        <div class="form-group">
-                            <select name="std_id" id="std_id" class="form-control">
-                                <option value="">Select Student</option>
-                                <?php
+                        <div class="col-lg-2">
+                            <div class="form-group mb-0">
+                                <label for="">User</label>
+                                <select name="user_id" id="user_id" class="form-control select2-users">
+                                    
+                                </select>
+                            </div>
+                        </div>
 
-                                $stds = get_users([
-                                    'type' => 'student'
-                                ]);
+                        <div class="col-lg-2">
+                            <div class="form-group mb-0">
+                                <label for="">Month</label>
+                                <select name="month" id="months" class="form-control">
+                                    <?php
 
-                                foreach ($stds as $key => $std) {
-                                    // $selected = ($current_month == $value) ? 'selected' :'';
-                                    $selected = (!empty($_GET['std_id'])) ? ( ($_GET['std_id'] == $std->id) ? 'selected' : '') : '';
-                                    echo '<option value="'.$std->id.'" '.$selected.' >'.$std->name.'</option>';
-                                }
-                                ?>
-                            </select>
+                                    $months = array('january', 'fabruary', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december');
+                                    
+                                    foreach ($months as $key => $value) {
+                                        echo '<option value="'.$value.'">'.ucwords($value).'</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-auto">
-                        <div class="form-group">
-                            <select name="month" id="month" class="form-control">
-                                <option value="">Select Month</option>
-                                <?php
-                                $months = array('january', 'fabruary', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december');
-                                
-                                foreach($months as $value){
-                                    // $selected = ;
-
-                                    $selected = (!empty($_GET['month'])) ? ( ($_GET['month'] == $value) ? 'selected' : '') : (($current_month == $value) ? 'selected' :'');
-                                    echo '<option value="'.$value.'" '.$selected.'>'.$value.'</option>';
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <div class="form-group">
-                            <select name="year" id="year" class="form-control">
-                                <option value="">Select Year</option>
-                                <?php 
-                                $registered_year = 2023;
-
-                                for ($i=$registered_year; $i <= $current_year; $i++) { 
-                                    $selected = (!empty($_GET['year'])) ? ( ($_GET['year'] == $i) ? 'selected' : '') : (($current_year == $i) ? 'selected' :'');
-                                    echo '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <div class="form-group">
-                            <input type="submit" name="filter" class="btn btn-primary" value="Show">
-                        </div>
-                    </div>
-                </div>
-            </form>
-
-            <?php if(isset($_GET['filter']) && !empty($_GET['month']) && !empty($_GET['year']) && !empty($_GET['std_id'])) {
-                $month = $_GET['month'];
-                $year = $_GET['year'];
-                $std_id = $_GET['std_id'];
-                ?>
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Attendance</h3>
-                </div>
-                <div class="card-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <td>Date</td>
-                                <td>Status</td>
-                                <td>Singin Time</td>
-                                <td>Singout Time</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        <?php
-                            
-                            $sql = "SELECT * FROM `attendance` WHERE `attendance_month` = '$month' AND year(current_session) = $year AND std_id = $std_id";
-
-                            $query = mysqli_query($db_conn, $sql);
-
-                            $row = mysqli_fetch_object($query);
-
-                            foreach(unserialize($row->attendance_value) as $date => $value){ ?>
-                            <tr>
-                                 <td><?php echo $date;?></td>
-                                 <td><?php echo ($value['signin_at'])? 'Present' : 'Absent';?></td>
-                                 <td><?php echo ($value['signin_at'])? date('d-m-yyy h:i:s', $value['signin_at']) : '';?></td>
-                                 <td><?php echo ($value['signout_at'])? date('d-m-yyy h:i:s', $value['signout_at']) : '';?></td>
-                             </tr>
-
-                            <?php } ?>
-                        </tbody>
-                    </table>
-                </div>
+                    <input type="hidden" name="year" value="<?php echo date('Y')?>">
+                    <input type="submit" value="View" name="filter" class="btn btn-primary">
+                </form>
             </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="calendar"></div>
+            </div>
+        </div>
+        
+    </div><!--/. container-fluid -->
+</section>
+<!-- /.content -->
 
-            <?php } ?>
-        </div><!--/. container-fluid -->
-    </section>
-    <!-- /.content -->
+<script>
+    att_url = '<?php echo 'ajax.php?action=get_user_attendance&user_id='.(isset($_GET['user_id'])?$_GET['user_id']:'0');?>';
 
+    jQuery(document)
+        .on('submit', '#get_user_attendance',function(e){
+            e.preventDefault();
+            data = new FormData(this);
+            jQuery.ajax({
+                type: "get",
+                url: "ajax.php?action=get_user_attendance",
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    jQuery('#loader').show();
+                },
+                success: function(response) {
+                    console.log(response);
+                    // init_calendar(response)
+                    jQuery(".calendar").zabuto_calendar({
+                        year : 2023,
+                        month : 11,
+                        events: response,
+                        navigation_prev: false,
+                        navigation_next: false,
+                        classname: 'table table-bordered lightgrey-weekends',
+                    })
+                }
+            });
+            return false;
+        })
+        .on('change', '#user_type', function(){
+            jQuery.ajax({
+                type: "post",
+                url: "ajax.php?action=get_user_by_type",
+                data: {'type' : jQuery(this).val()},
+                dataType: 'json',
+                beforeSend: function() {
+                    jQuery('#loader').show();
+                },
+                success: function(response) {
+                    console.log(response);
+                    // jQuery('#user_id').html(response.user_options);
+                },
+                complete: function() {
+                }
+            });
+        })
+    .ready(function(){
+        
+        jQuery(".calendar").zabuto_calendar(
+            {
+                classname: 'table table-bordered lightgrey-weekends',
+                year:2023,
+                month: 12,
+                ajax: {
+                    url: 'ajax.php',
+                    data : {
+                        action: 'get_user_attendance',
+                        type: 'student',
+                        
+                    }
+                }
+            }
+        );
+
+        jQuery('.select2-users').select2({
+            placeholder: 'Search User',
+            ajax: {
+                delay: 250,
+                url: 'ajax.php',
+                dataType: 'json',
+                data : function (params) {
+                    return {
+                        action: 'get_user_by_type',
+                        type: 'student',
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data) {
+                    // Transforms the top-level key of the response object from 'items' to 'results'
+                    return {
+                        results: data
+                    };
+                }
+            }
+        });
+    });
+</script>
 <?php include('footer.php') ?>

@@ -14,21 +14,29 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <!-- <form class="form-inline ml-3">
+    <form class="form-inline ml-3" action="user-account.php">
       <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <input type="hidden" name="user" value="<?php echo isset($_GET['user'])?$_GET['user']:'student';?>">
+        <input class="form-control form-control-navbar" type="search" placeholder="Search" name="s" aria-label="Search" value="<?php echo isset($_GET['s'])?$_GET['s']:'';?>">
         <div class="input-group-append">
           <button class="btn btn-navbar" type="submit">
             <i class="fas fa-search"></i>
           </button>
         </div>
       </div>
-    </form> -->
+    </form>
+    
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
+      <li class="nav-item mr-3">
+        <span class="nav-">
+          <small><b>Current Session</b><br> <?php echo get_setting('current_session');?></small>
+        </span>
+      </li>
       <li class="nav-item dropdown">
+        
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">3</span>

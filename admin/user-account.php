@@ -18,6 +18,14 @@ if (isset($_POST['submit'])) {
   }
 }
 
+if(!empty($_GET['action']) && 'trash' == $_GET['action']){
+  $std_id = isset($_GET['id'])? $_GET['id'] : header('location: user-account.php?user=student');  
+  mysqli_query($db_conn,"DELETE FROM `usermeta` WHERE `user_id` = $std_id") or die('Something went Wrong while deleting student');
+  mysqli_query($db_conn,"DELETE FROM `accounts` WHERE `id` = $std_id") or die('Something went Wrong while deleting student');
+
+  $_SESSION['success_msg'] = 'User has been succefuly removed';
+  header('location: user-account.php?user='.$_GET['user']);exit;
+}
 ?>
 
 
@@ -69,5 +77,14 @@ if (isset($_POST['submit'])) {
   </div><!--/. container-fluid -->
 </section>
 <!-- /.content -->
+
+<script>
+  jQuery(document).on('click', '.trash-user', function(e){
+    
+    if (confirm('Are you sure?') == false) {
+      return false;
+    }
+  });
+</script>
 
 <?php include('footer.php') ?>
