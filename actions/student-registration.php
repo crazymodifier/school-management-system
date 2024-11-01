@@ -53,7 +53,7 @@ if(isset($_POST['type']) && $_POST['type'] == 'student')
     $subject_streem = isset($_POST['subject_streem'])?$_POST['subject_streem']:'';
     $doa = isset($_POST['doa'])?$_POST['doa']:'';
     
-    $std_enroll = isset($_POST['enrollment_no'])? $_POST['enrollment_no']  : date('Y', strtotime($doa)).date('dm', strtotime($dob)).sprintf('%06d',$std_enroll);
+    $std_enroll = !empty($_POST['enrollment_no'])? $_POST['enrollment_no']  : date('Y', strtotime($doa)).date('dm', strtotime($dob)).sprintf('%06d',$std_enroll);
     $usermeta = [];
     foreach ($_FILES['documention']['name'] as $key => $value) {
         // Check file size
@@ -170,7 +170,7 @@ if(isset($_POST['type']) && $_POST['type'] == 'student')
             mysqli_query($db_conn, "INSERT INTO usermeta (`user_id`,`meta_key`,`meta_value`) VALUES ('$user_id','$key','$value')") or die(mysqli_error($db_conn));
         }
     
-        $months = array('january', 'fabruary', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december');
+        $months = array('january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december');
     
         $att_data = [];
         for ($i=1; $i <= 31; $i++) { 

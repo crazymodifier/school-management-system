@@ -11,7 +11,7 @@ if(isset($_POST['submit']))
   $type = 'period';
   $date_add = date('Y-m-d g:i:s');
 
-  $query = mysqli_query($db_conn, "INSERT INTO `posts` (`title`,`status`,`publish_date`,`type`) VALUES ('$title','$status','$date_add','$type') ");
+  $query = mysqli_query($db_conn, "INSERT INTO `posts` (`title`,`status`,`publish_date`,`type`,`description`,`parent`) VALUES ('$title','$status','$date_add','$type','',0) ");
 
   if($query)
   {

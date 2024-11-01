@@ -111,7 +111,7 @@
     <a href="<?=$site_url?>student/profile.php" class="brand-link">
       <?php
 
-      if($user['photo']) {
+      if(!empty($user['photo'])) {
           echo '<img class="brand-image img-circle elevation-3" src="../dist/uploads/student-docs/'.$user['photo'].'" alt="User profile picture">';
       }
       else{

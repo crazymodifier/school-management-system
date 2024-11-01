@@ -57,7 +57,7 @@
                                 <select name="month" id="months" class="form-control">
                                     <?php
 
-                                    $months = array('january', 'fabruary', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december');
+                                    $months = array('january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december');
                                     
                                     foreach ($months as $key => $value) {
                                         echo '<option value="'.$value.'">'.ucwords($value).'</option>';
@@ -91,22 +91,25 @@
             e.preventDefault();
             data = new FormData(this);
             jQuery.ajax({
-                type: "get",
+                type: "post",
                 url: "ajax.php?action=get_user_attendance",
                 data: data,
                 cache: false,
                 contentType: false,
                 processData: false,
+                dataType:'json',
                 beforeSend: function() {
                     jQuery('#loader').show();
                 },
                 success: function(response) {
-                    console.log(response);
-                    // init_calendar(response)
+                    console.log(response.attendance);
+                    if(jQuery('.calendar').children().length > 0){
+                        jQuery(".calendar").zabuto_calendar('destroy')
+                    }
                     jQuery(".calendar").zabuto_calendar({
-                        year : 2023,
-                        month : 11,
-                        events: response,
+                        events: response.attendance,
+                        year: parseInt(response.current_year),
+                        month: parseInt(response.current_month),
                         navigation_prev: false,
                         navigation_next: false,
                         classname: 'table table-bordered lightgrey-weekends',
@@ -134,21 +137,21 @@
         })
     .ready(function(){
         
-        jQuery(".calendar").zabuto_calendar(
-            {
-                classname: 'table table-bordered lightgrey-weekends',
-                year:2023,
-                month: 12,
-                ajax: {
-                    url: 'ajax.php',
-                    data : {
-                        action: 'get_user_attendance',
-                        type: 'student',
+        // jQuery(".calendar").zabuto_calendar(
+        //     {
+        //         classname: 'table table-bordered lightgrey-weekends',
+        //         year:2024,
+        //         month: 4,
+        //         ajax: {
+        //             url: 'ajax.php',
+        //             data : {
+        //                 action: 'get_user_attendance',
+        //                 type: 'student',
                         
-                    }
-                }
-            }
-        );
+        //             }
+        //         }
+        //     }
+        // );
 
         jQuery('.select2-users').select2({
             placeholder: 'Search User',

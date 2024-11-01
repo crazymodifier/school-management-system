@@ -18,9 +18,15 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+
+    
+
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+        <div class="alert alert-info" role="alert">
+          To import Demo data <a href="<?=$site_url?>actions/import-sample-db.php" class="alert-link">click here</a>
+        </div>
         <!-- Info boxes -->
         <div class="row">
           <div class="col-12 col-sm-6 col-md-3">

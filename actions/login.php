@@ -11,7 +11,7 @@
 
     $query = mysqli_query($db_conn,"SELECT * FROM `accounts` as a JOIN `usermeta` as um ON um.user_id = a.id WHERE a.password='$pass_md5' AND ( a.email = '$email' OR (um.meta_key IN ('emp_id','enrollment_no') AND um.meta_value = '$email'))");
 
-    print_r("SELECT * FROM `accounts` as a JOIN `usermeta` as um ON um.user_id = a.id WHERE a.password='$pass_md5' AND ( a.email = '$email' OR (um.meta_key IN ('emp_id','enrollment_no') AND um.meta_value = '$email'))");
+    // print_r("SELECT * FROM `accounts` as a JOIN `usermeta` as um ON um.user_id = a.id WHERE a.password='$pass_md5' AND ( a.email = '$email' OR (um.meta_key IN ('emp_id','enrollment_no') AND um.meta_value = '$email'))");
     if(mysqli_num_rows($query) > 0)
     {
       $user = mysqli_fetch_object($query);

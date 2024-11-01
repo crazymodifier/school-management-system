@@ -2,21 +2,19 @@
 
 
 
-  $db_conn = mysqli_connect('localhost', 'root', 'root','sms_project');
+  $db_conn = mysqli_connect('localhost', 'root', 'SPZ<d£58L7M3','sms_project');
 
   if (!$db_conn) {
     echo 'Connection Failed';
     exit;
   }
   session_start();
+  if(isset($_POST['submit'])){
+    $site_url = !empty($_POST['site_url'])?$_POST['site_url']:'http://localhost/sms-project/';
+    mysqli_query($db_conn,"INSERT INTO `settings` (setting_key, setting_value) VALUES ('site_url', '$site_url') ");
+  }
   $query = mysqli_query($db_conn , "SELECT * FROM `settings` WHERE setting_key = 'site_url'");
   if(mysqli_num_rows($query) < 1){
-
-    if(isset($_POST['submit'])){
-      $site_url = !empty($_POST['site_url'])?$_POST['site_url']:'http://localhost/sms-project/';
-      mysqli_query($db_conn,"INSERT INTO `settings` (setting_key, setting_value) VALUES ('site_url', '$site_url') ");
-    }
-
     ?>
     <form action="" method="post">
       
@@ -62,7 +60,10 @@
     <?php
     die;
   }
-  date_default_timezone_set('Asia/Kolkata');
-  include('functions.php');
+  else{
+    date_default_timezone_set('Asia/Kolkata');
+    include('functions.php');
+  }
 
 ?>
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae quod voluptate, voluptatem et vitae sed officia eligendi velit similique eos eaque reiciendis nesciunt praesentium. Aliquam labore ullam id pariatur accusamus.

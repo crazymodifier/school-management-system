@@ -166,13 +166,13 @@ if (isset($_POST['submit'])) {
 
             <form action="" method="get">
                 <?php
-                $class_id = isset($_GET['class']) ? $_GET['class'] : 43;
-                $section_id = isset($_GET['section']) ? $_GET['section'] : 3;
+                $class_id = isset($_GET['class']) ? $_GET['class'] : 0;
+                $section_id = isset($_GET['section']) ? $_GET['section'] : 0;
                 ?>
                 <div class="row">
                     <div class="col-auto">
                         <div class="form-group">
-                            <select name="class" id="class" class="form-control">
+                            <select name="class" id="class" class="form-control select-2-multi-select">
                                 <option value="">Select Class</option>
                                 <?php
                                 $args = array(
@@ -189,7 +189,7 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="col-auto">
                         <div class="form-group" id="section-container">
-                            <select name="section" id="section" class="form-control">
+                            <select name="section" id="section" class="form-control select-2-multi-select">
                                 <option value="">Select Section</option>
                                 <?php
                                 $args = array(
@@ -211,89 +211,92 @@ if (isset($_POST['submit'])) {
 
             </form>
 
-            <div class="card">
-                <div class="card-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Timing</th>
-                                <th>Monday</th>
-                                <th>Tuesday</th>
-                                <th>Wednesday</th>
-                                <th>Thursday</th>
-                                <th>Friday</th>
-                                <th>Saturday</th>
-                                <th>Sunday</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $args = array(
-                                'type' => 'period',
-                                'status' => 'publish',
-                            );
-                            $periods = get_posts($args);
-
-                            foreach ($periods as $period) {
-                                $from = get_metadata($period->id, 'from')[0]->meta_value;
-
-                                $to = get_metadata($period->id, 'to')[0]->meta_value;
-                            ?>
+            <?php if($class_id && $section_id){?>
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
                                 <tr>
-                                    <td><?php echo date('h:i A', strtotime($from)) ?> - <?php echo date('h:i A', strtotime($to)) ?></td>
-                                    <?php
-
-                                    $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-
-                                    foreach ($days as $day) {
-                                        $query = mysqli_query($db_conn, "SELECT * FROM posts as p 
-                                INNER JOIN metadata as md ON (md.item_id = p.id) 
-                                INNER JOIN metadata as mp ON (mp.item_id = p.id) 
-                                INNER JOIN metadata as mc ON (mc.item_id = p.id) 
-                                INNER JOIN metadata as ms ON (ms.item_id = p.id) 
-                                WHERE p.type = 'timetable' AND p.status = 'publish' AND md.meta_key = 'day_name' AND md.meta_value = '$day' AND mp.meta_key = 'period_id' AND mp.meta_value = $period->id AND mc.meta_key = 'class_id' AND mc.meta_value = $class_id AND ms.meta_key = 'section_id' AND ms.meta_value = $section_id");
-
-
-
-                                        if (mysqli_num_rows($query) > 0) {
-                                            while ($timetable = mysqli_fetch_object($query)) {
-
-
-                                    ?>
-                                                <td>
-                                                    <p>
-                                                        <b>Teacher: </b>
-                                                        <?php
-                                                        $teacher_id = get_metadata($timetable->item_id, 'teacher_id')[0]->meta_value;
-
-                                                        // echo get_user_data($teacher_id)->name;
-                                                        ?>
-
-
-
-                                                        <br>
-                                                        <b>Subject: </b>
-                                                        <?php
-                                                        $subject_id = get_metadata($timetable->item_id, 'subject_id',)[0]->meta_value;
-                                                        echo get_post(array('id' => $subject_id))->title;
-                                                        ?>
-                                                        <br>
-                                                    </p>
-                                                </td>
-                                            <?php }
-                                        } else { ?>
-                                            <td>
-                                                Unscheduled
-                                            </td>
-
-                                    <?php }
-                                    } ?>
+                                    <th>Timing</th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                    <th>Saturday</th>
+                                    <th>Sunday</th>
                                 </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $args = array(
+                                    'type' => 'period',
+                                    'status' => 'publish',
+                                );
+                                $periods = get_posts($args);
+
+                                foreach ($periods as $period) {
+                                    $from = get_metadata($period->id, 'from')[0]->meta_value;
+
+                                    $to = get_metadata($period->id, 'to')[0]->meta_value;
+                                ?>
+                                    <tr>
+                                        <td><?php echo date('h:i A', strtotime($from)) ?> - <?php echo date('h:i A', strtotime($to)) ?></td>
+                                        <?php
+
+                                        $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+
+                                        foreach ($days as $day) {
+                                            $query = mysqli_query($db_conn, "SELECT * FROM posts as p 
+                                    INNER JOIN metadata as md ON (md.item_id = p.id) 
+                                    INNER JOIN metadata as mp ON (mp.item_id = p.id) 
+                                    INNER JOIN metadata as mc ON (mc.item_id = p.id) 
+                                    INNER JOIN metadata as ms ON (ms.item_id = p.id) 
+                                    WHERE p.type = 'timetable' AND p.status = 'publish' AND md.meta_key = 'day_name' AND md.meta_value = '$day' AND mp.meta_key = 'period_id' AND mp.meta_value = $period->id AND mc.meta_key = 'class_id' AND mc.meta_value = $class_id AND ms.meta_key = 'section_id' AND ms.meta_value = $section_id");
+
+
+
+                                            if (mysqli_num_rows($query) > 0) {
+                                                while ($timetable = mysqli_fetch_object($query)) {
+
+
+                                        ?>
+                                                    <td>
+                                                        <p>
+                                                            <b>Teacher: </b>
+                                                            <?php
+                                                            $teacher_id = get_metadata($timetable->item_id, 'teacher_id')[0]->meta_value;
+
+                                                            // echo ->name;
+                                                            print_r(get_userdata($teacher_id)['name']);
+                                                            ?>
+
+
+
+                                                            <br>
+                                                            <b>Subject: </b>
+                                                            <?php
+                                                            $subject_id = get_metadata($timetable->item_id, 'subject_id',)[0]->meta_value;
+                                                            echo get_post(array('id' => $subject_id))->title;
+                                                            ?>
+                                                            <br>
+                                                        </p>
+                                                    </td>
+                                                <?php }
+                                            } else { ?>
+                                                <td>
+                                                    Unscheduled
+                                                </td>
+
+                                        <?php }
+                                        } ?>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
 
         <?php } ?>
     </div><!--/. container-fluid -->

@@ -17,10 +17,10 @@
     $category = isset($user['category']) ? $user['category'] : '';
     $aadhar_number = isset($user['aadhar_number']) ? $user['aadhar_number'] : '';
 
-    $emp_id = isset($user['emp_id']) ? $user['emp_id'] : '';
+    $emp_id = isset($user['emp_id']) ? $user['emp_id'] : '1';
 
     $subjects_d = isset($user['subjects']) ? unserialize($user['subjects']) : [];
-    $teaching_area = isset($user['teaching_area']) ? unserialize($user['teaching_area']) : [];
+    $teaching_area = !empty($user['teaching_area']) ? unserialize($user['teaching_area']) : [];
 
     $doj = isset($user['doj']) ? $user['doj'] : date('Y-m-d');
     $salary = isset($user['salary']) ? $user['salary'] : '';
@@ -199,7 +199,10 @@
                                             $subjects = get_posts(['type' => 'subject']);
 
                                             foreach ($subjects as $key => $subject) {
-                                                $selected = in_array($subject->id, $subjects_d) ? 'selected' : '';
+                                                $selected =''; 
+                                                if(is_array($subjects_d)){
+                                                    $selected = in_array($subject->id, $subjects_d) ? 'selected' : '';
+                                                }
                                                 echo '<option value="' . $subject->id . '" ' . $selected . '>' . $subject->title . '</option>';
                                             }
                                             ?>
@@ -421,7 +424,7 @@
             var formdata = new FormData(this);
             jQuery.ajax({
                 type: "post",
-                url: "http://localhost/sms-project/admin/ajax.php",
+                url: "/sms-project/admin/ajax.php",
                 data: formdata,
                 cache: false,
                 contentType: false,
@@ -431,10 +434,10 @@
                 },
                 success: function(response) {
                     // console.log(response);
-                    // location.href = 'http://localhost/sms-project/admin/user-account.php?user=teacher';
+                    location.href = '/sms-project/admin/user-account.php?user=teacher';
                 },
                 complete: function() {
-                    // jQuery('#loader').hide();
+                    jQuery('#loader').hide();
                 }
             });
         }

@@ -27,6 +27,10 @@
 
 <script src="<?php echo $site_url;?>plugins/calendar/zabuto_calendar.min.js"></script>
 
+<script src="<?php echo $site_url;?>plugins/jquery-blockui/jquery.blockui.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js" id="jquery-validator"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js" id="jquery-validator-methods"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo $site_url;?>dist/js/adminlte.js"></script>
 

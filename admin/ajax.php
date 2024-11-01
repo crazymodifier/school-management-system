@@ -3,28 +3,35 @@
 
 if(isset($_GET['action']) && 'get_user_attendance' == $_GET['action']){
 
-    $monthNum = isset($_GET['month'])?$_GET['month']:date('m');
-    $month = strtolower(date('F', mktime(0, 0, 0, $monthNum, 10))); 
-    $user_id = isset($_GET['user_id'])?$_GET['user_id']:45;
-    $year = isset($_GET['year'])?$_GET['year']:date('Y');
+    $month = isset($_POST['month'])?$_POST['month']:strtolower(date('F'));
+    
+    $user_id = isset($_POST['user_id'])?$_POST['user_id']:1;
+    $year = isset($_POST['year'])?$_POST['year']:date('Y');
     $query = mysqli_query($db_conn,"SELECT * FROM `attendance` WHERE attendance_month = '$month' AND std_id = '{$user_id}' AND YEAR(current_session) = $year");
     $data = mysqli_fetch_array($query);
-    
     $data = unserialize($data['attendance_value']);
-    $output = [];
+    $atdnc = [];
     foreach ($data as $key => $value) {
-        
+        $monthNum = date('m',strtotime($month));
+        $date = $year.'-'.$monthNum.'-'.sprintf('%02d',$key);
         if($value['signin_at']){
-
-            // $date = date('Y-m-d', );
-    
-            $output[] = [
-                'date' => $year.'-'.$monthNum.'-'.$key,
-                'markup' => "[day]<span class=\"badge badge-sm rounded-pill px-2 bg-success\" style=\"font-size:12px\">P</span>"
+            $atdnc[] = [
+                'date' => $date,
+                'markup' => "[day] <span class=\"badge badge-sm rounded-pill px-2 bg-success\" style=\"font-size:12px\">P</span>"
             ];
         }
-    
+        elseif( strtotime($date) < time()){
+            $atdnc[] = [
+                'date' => $date,
+                'markup' => "[day] <span class=\"badge badge-sm rounded-pill px-2 bg-danger\" style=\"font-size:12px\">A</span>"
+            ];
+        }
     }
+    $output = [
+        'attendance' => $atdnc,
+        'current_year' => $year,
+        'current_month' => $monthNum,
+    ];
     echo json_encode($output);
     die;
 }
@@ -155,11 +162,11 @@ if(!empty($_GET['action']) && 'get_users_details' == $_GET['action']){
             foreach ($result as $key => $value) {
                 $class = get_post(array('id'=> $value['class_id']))->title;
                 $section = get_post(array('id'=> intval($value['sec_id'])))->title;
-                $class = 'Class-'.$class.' ('.$section.')';
+                $class = $class.' ('.$section.')';
                 $usermeta = get_user_metadata($value['id']);
                 $img = !empty($usermeta['photo']) ? '<img class="border" src="../dist/uploads/student-docs/'.$usermeta['photo'].'" width="40" height="40">':'<img class="border" src="../dist/img/AdminLTELogo.png" width="40" height="40">';
                 $data['data'][] = [
-                    'enroll' => $usermeta['enrollment_no'],
+                    'enroll' => !empty($usermeta['enrollment_no']) ? $usermeta['enrollment_no'] : '1234567890',
                     'class' => $class,
                     'photo' => $img,
                     'name' => $value['name'],
@@ -190,22 +197,26 @@ if(!empty($_GET['action']) && 'get_users_details' == $_GET['action']){
                 $usermeta = get_user_metadata($value['id']);
                 $subjects = unserialize($usermeta['subjects']);
                 $subject_data = '';
-                foreach ($subjects as $subject) {
-                    // $child = get_userdata($chid_id);
-                    $result = mysqli_fetch_array(mysqli_query($db_conn, "SELECT `title` FROM `posts` WHERE id = $subject"), MYSQLI_ASSOC);
-                    if($result){
-                        $subject_data .= '<a class="btn btn-sm btn-default mr-2">'.$result['title'].'</a>';
+                if(is_array($subjects)){
+                    foreach ($subjects as $subject) {
+                        // $child = get_userdata($chid_id);
+                        $result = mysqli_fetch_array(mysqli_query($db_conn, "SELECT `title` FROM `posts` WHERE id = $subject"), MYSQLI_ASSOC);
+                        if($result){
+                            $subject_data .= '<a class="btn btn-sm btn-default mr-2">'.$result['title'].'</a>';
+                        }
+    
                     }
-
                 }
                 $teaching_areas = unserialize($usermeta['teaching_area']);
                 $teaching_area_data = '';
-                foreach ($teaching_areas as $teaching_area) {
-                    $teaching_area_data .= '<a class="btn btn-sm btn-default mr-2">'.$teaching_area.'</a>';
+                if(is_array($teaching_areas)){
+                    foreach ($teaching_areas as $teaching_area) {
+                        $teaching_area_data .= '<a class="btn btn-sm btn-default mr-2">'.$teaching_area.'</a>';
+                    }
                 }
                 $img = !empty($usermeta['photo']) ? '<img class="border" src="../dist/uploads/teacher-docs/'.$usermeta['photo'].'" width="40" height="40">':'<img class="border" src="../dist/img/AdminLTELogo.png" width="40" height="40">';
                 $data['data'][] = [
-                    'emp_id' => (isset($usermeta['emp_id'])? $usermeta['emp_id']:''),
+                    'emp_id' => (isset($usermeta['emp_id'])? $usermeta['emp_id']:'1'),
                     'photo' => $img,
                     'name' => $value['name'],
                     'subjects' => $subject_data,
@@ -373,7 +384,7 @@ if(isset($_POST['type']) && $_POST['type'] == 'teacher')
             mysqli_query($db_conn, "INSERT INTO usermeta (`user_id`,`meta_key`,`meta_value`) VALUES ('$user_id','$key','$value')") or die(mysqli_error($db_conn));
         }
     
-        $months = array('january', 'fabruary', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december');
+        $months = array('january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december');
     
         $att_data = [];
         for ($i=1; $i <= 31; $i++) { 

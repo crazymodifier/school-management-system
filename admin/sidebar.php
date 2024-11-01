@@ -162,12 +162,6 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?=$site_url?>admin/users/students.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Counseller</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="<?=$site_url?>admin/user-account.php?user=teacher" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Teachers</p>
@@ -183,12 +177,6 @@
                 <a href="<?=$site_url?>admin/user-account.php?user=parent" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Parents</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=$site_url?>admin/user-account.php?user=librarian" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Librarian</p>
                 </a>
               </li>
             </ul>

@@ -227,7 +227,7 @@ if (isset( $_GET['action'] ) && $_GET['action'] == 'view-invoice') { ?>
 
                             //                    print_r($paid_fees);
                             //                    echo '</pre>'; 
-                            $months = array('january', 'fabruary', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december');
+                            $months = array('january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december');
 
                             $ses_start_month = array_search('july',$months);
                             $first_elements = array_slice($months, 0,$ses_start_month);

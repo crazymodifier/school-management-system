@@ -40,7 +40,7 @@ foreach($payment_data as $key => $value){
     mysqli_query($db_conn, "UPDATE `metadata` (`item_id`, `meta_key`, `meta_value`) VALUE ('$item_id', '$key', '$value')");
 }
 
-$old_months = get_usermeta();
+// $old_months = get_usermeta();
 if($old_months){
     $old_months[] = 
     mysqli_query($db_conn, "UPDATE `metadata` (`item_id`, `meta_key`, `meta_value`) VALUE ('$item_id', 'months',)");

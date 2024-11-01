@@ -53,7 +53,7 @@
               </thead>
               <tbody>
                 <?php
-                $months = array('january', 'fabruary','march','april','may','june','july','august','september','october','november','december');
+                $months = array('january', 'february','march','april','may','june','july','august','september','october','november','december');
                 foreach ($months as $key => $value) {
                   $highlight = ''; 
                   if(date('F') == ucwords($value))

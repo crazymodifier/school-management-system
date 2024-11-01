@@ -5,7 +5,7 @@
                 <div class="text-center">
                     <?php
 
-                    if ($user['photo']) {
+                    if (!empty($user['photo'])) {
                         echo '<img class="profile-user-img img-fluid img-circle" src="../dist/uploads/student-docs/' . $user['photo'] . '" alt="User profile picture">';
                     } else {
                         echo '<img class="profile-user-img img-fluid img-circle" src="../dist/img/AdminLTELogo.png" alt="User profile picture">';
