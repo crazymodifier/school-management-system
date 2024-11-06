@@ -1,6 +1,6 @@
 <?php
  //session_start();
-  $site_url = 'http://localhost/sms-project/';
+  
   if(isset($_SESSION['login']) && $_SESSION['login'] == TRUE)
   {
     if(isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'admin')

@@ -1,6 +1,5 @@
 <?php
  //session_start();
- $site_url = 'http://localhost/sms-project/';
   if(isset($_SESSION['login']))
   {
     if(isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'parent')
