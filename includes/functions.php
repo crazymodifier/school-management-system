@@ -1,5 +1,19 @@
 <?php
+function site_url()
+{
+    global $db_conn;
+    $query = mysqli_query($db_conn , "SELECT setting_value as site_url FROM `settings` WHERE setting_key = 'site_url'");
+    if(mysqli_num_rows($query)){
+        $siteurl = mysqli_fetch_assoc($query)['site_url'];
+        $sls = substr($siteurl, strlen($siteurl)-1);
+        if('/' !== $sls){
+            return $siteurl.'/';
+        }
+        return $siteurl;
+    }
 
+    return '';
+}
 function get_the_teachers($args)
 {
     return $args;

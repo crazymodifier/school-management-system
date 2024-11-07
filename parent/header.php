@@ -1,7 +1,5 @@
 <?php
-
-  $site_url = site_url();
-  if(isset($_SESSION['login']) && $_SESSION['login'] == TRUE)
+if(isset($_SESSION['login']) && $_SESSION['login'] == TRUE)
   {
     if(isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'parent')
     {
