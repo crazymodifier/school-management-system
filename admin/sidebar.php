@@ -14,21 +14,29 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <!-- <form class="form-inline ml-3">
+    <form class="form-inline ml-3" action="user-account.php">
       <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <input type="hidden" name="user" value="<?php echo isset($_GET['user'])?$_GET['user']:'student';?>">
+        <input class="form-control form-control-navbar" type="search" placeholder="Search" name="s" aria-label="Search" value="<?php echo isset($_GET['s'])?$_GET['s']:'';?>">
         <div class="input-group-append">
           <button class="btn btn-navbar" type="submit">
             <i class="fas fa-search"></i>
           </button>
         </div>
       </div>
-    </form> -->
+    </form>
+    
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
+      <li class="nav-item mr-3">
+        <span class="nav-">
+          <small><b>Current Session</b><br> <?php echo get_setting('current_session');?></small>
+        </span>
+      </li>
       <li class="nav-item dropdown">
+        
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">3</span>
@@ -113,7 +121,7 @@
         </div>
       </li>
       <li class="nav-item">
-        <a href="../logout.php" class="nav-link" title="Logout">
+        <a href="<?php echo $site_url;?>logout.php" class="nav-link" title="Logout">
         Logout <i class="fa fa-sign-out-alt"></i>
         </a>
       </li>
@@ -125,7 +133,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="<?=$site_url?>/admin/dashboard.php" class="brand-link">
-      <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      <img src="<?php echo $site_url;?>dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">SMS Admin</span>
     </a>
@@ -154,7 +162,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?=$site_url?>admin/user-account.php?user=counseller" class="nav-link">
+                <a href="<?=$site_url?>admin/users/students.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Counseller</p>
                 </a>
@@ -268,7 +276,7 @@
               <li class="nav-item">
                 <a href="<?=$site_url?>admin/exam-form.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Examination Form</p>
+                  <p>Examinations</p>
                 </a>
               </li>
               <li class="nav-item">

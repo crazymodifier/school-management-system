@@ -40,46 +40,52 @@
 
                 </div>
             </div>
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Attendance</h3>
-                </div>
-                <div class="card-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <td>Date</td>
-                                <td>Status</td>
-                                <td>Singin Time</td>
-                                <td>Singout Time</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        <?php
-                            $current_month = strtolower(date('F'));
-                            $current_year = date('Y');
-                            $sql = "SELECT * FROM `attendance` WHERE `attendance_month` = '$current_month' AND year(current_session) = $current_year";
-
-                            $query = mysqli_query($db_conn, $sql);
-
-                            $row = mysqli_fetch_object($query);
-
-                            foreach(unserialize($row->attendance_value) as $date => $value){ ?>
-                            <tr>
-                                 <td><?php echo $date;?></td>
-                                 <td><?php echo ($value['signin_at'])? 'Present' : 'Absent';?></td>
-                                 <td><?php echo ($value['signin_at'])? date('d-m-yyy h:i:s', $value['signin_at']) : '';?></td>
-                                 <td><?php echo ($value['signout_at'])? date('d-m-yyy h:i:s', $value['signout_at']) : '';?></td>
-                             </tr>
-
-                            <?php } ?>
-                        </tbody>
-                    </table>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="calendar"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->
-
+    <?php
+    $query = mysqli_query($db_conn,"SELECT * FROM `attendance` WHERE attendance_month = 'november' AND std_id = '{$std_id}' AND YEAR(current_session) = 2023");
+    $data = mysqli_fetch_array($query);
+    
+    $data = unserialize($data['attendance_value']);
+    
+    $attdnc = [];
+    
+    foreach ($data as $key => $value) {
+        
+        if($value['signin_at']){
+            $date = date('Y-m-d', strtotime(ucfirst('november').' '.$value['date'].', 2023'));
+    
+            $attdnc[] = [
+                'date' => $date,
+                'markup' => "[day]<span class=\"badge badge-sm rounded-pill px-2 bg-success\" style=\"font-size:12px\">P</span>"
+            ];
+        }
+    
+    }
+    ?>
+    <script>
+    jQuery(document).ready(function(){
+        attdnc = <?php echo json_encode($attdnc);?>;
+        jQuery(".calendar").zabuto_calendar(
+            {
+                classname: 'table table-bordered lightgrey-weekends',
+                navigation_prev: false,
+                navigation_next: false,
+                year: 2023,
+                month: 11,
+                events: attdnc
+            }
+        );
+    });
+</script>
 <?php include('footer.php') ?>

@@ -1,22 +1,23 @@
 <?php
- //session_start();
+
   if(isset($_SESSION['login']))
   {
     if(isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'student')
     {
       $user_type = $_SESSION['user_type'];
-      header('Location: /sms-project/'.$user_type.'/dashboard.php');
+      header('Location: '.$site_url.$user_type.'/dashboard.php');
+      exit();
     }
   }
   else 
   {
-    
-    header('Location: ../login.php');
+    header('Location:'.$site_url.'login.php');
+    exit();
   }
-
   $std_id = $_SESSION['user_id'];
   $student = get_user_data($std_id);
   $stdmeta = get_user_metadata($std_id);
+  $user = get_userdata($std_id);
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +33,10 @@
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+
+  <link rel="stylesheet" href="../plugins/calendar/zabuto_calendar.min.css">
+
+
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->

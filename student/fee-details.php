@@ -228,7 +228,13 @@ if (isset( $_GET['action'] ) && $_GET['action'] == 'view-invoice') { ?>
                             //                    print_r($paid_fees);
                             //                    echo '</pre>'; 
                             $months = array('january', 'fabruary', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december');
-                            foreach ($months as $key => $value) {
+
+                            $ses_start_month = array_search('july',$months);
+                            $first_elements = array_slice($months, 0,$ses_start_month);
+                            $last_elements = array_slice($months, $ses_start_month);
+                            $current_session = array_merge($last_elements,$first_elements);        
+                            // print_r($current_session); die;
+                            foreach ($current_session as $key => $value) {
                                 $highlight = '';
 
                                 $paid = false;

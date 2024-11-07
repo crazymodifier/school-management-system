@@ -109,10 +109,19 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="<?=$site_url?>student/profile.php" class="brand-link">
-      <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <!-- <span class="brand-image img-circle elevation-3"><i class="fa fa-user"></i></span> -->
-      <span class="brand-text font-weight-light">Student Panel</span>
+      <?php
+
+      if($user['photo']) {
+          echo '<img class="brand-image img-circle elevation-3" src="../dist/uploads/student-docs/'.$user['photo'].'" alt="User profile picture">';
+      }
+      else{
+          echo '<img class="brand-image img-circle elevation-3" src="../dist/img/AdminLTELogo.png" alt="User profile picture">';
+      }
+      ?>
+      
+      <span class="brand-text font-weight-light">
+        <?php echo $user['name'];?>
+      </span>
     </a>
 
     <!-- Sidebar -->
@@ -144,12 +153,6 @@
                 <a href="<?=$site_url?>student/courses.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Courses</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?=$site_url?>student/subjects.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Subects</p>
                 </a>
               </li>
               <li class="nav-item">
