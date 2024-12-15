@@ -155,7 +155,7 @@ if(!empty($_GET['action']) && 'get_users_details' == $_GET['action']){
             foreach ($result as $key => $value) {
                 $class = get_post(array('id'=> $value['class_id']))->title;
                 $section = get_post(array('id'=> intval($value['sec_id'])))->title;
-                $class = 'Class-'.$class.' ('.$section.')';
+                $class = $class.' ('.$section.')';
                 $usermeta = get_user_metadata($value['id']);
                 $img = !empty($usermeta['photo']) ? '<img class="border" src="../dist/uploads/student-docs/'.$usermeta['photo'].'" width="40" height="40">':'<img class="border" src="../dist/img/AdminLTELogo.png" width="40" height="40">';
                 $data['data'][] = [

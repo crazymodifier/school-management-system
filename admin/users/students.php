@@ -473,7 +473,7 @@ if (isset($_GET['action'])) {
       var formdata = new FormData(this);
       jQuery.ajax({
         type: "post",
-        url: "http://localhost/sms-project/actions/student-registration.php",
+        url: "http://localhost:8080/sms-project/actions/student-registration.php",
         data: formdata,
         cache: false,
         contentType: false,
@@ -484,7 +484,7 @@ if (isset($_GET['action'])) {
         success: function(response) {
           console.log(response);
           // if (response.success == true) {
-            location.href = 'http://localhost/sms-project/admin/user-account.php?user=student';
+            location.href = 'http://localhost:8080/sms-project/admin/user-account.php?user=student';
           // }
         },
         complete: function() {

@@ -19,20 +19,6 @@ function get_the_teachers($args)
     return $args;
 }
 
-function site_url()
-{
-    global $db_conn;
-    $query = mysqli_query($db_conn , "SELECT setting_value as site_url FROM `settings` WHERE setting_key = 'site_url'");
-    if(mysqli_num_rows($query)){
-        $siteurl = mysqli_fetch_assoc($query)['site_url'];
-        $sls = substr($siteurl, strlen($siteurl)-1);
-        if('/' !== $sls){
-            return $siteurl.'/';
-        }
-        return $siteurl;
-    }
-}
-
 function get_the_classes()
 {
     global $db_conn;
@@ -282,7 +268,7 @@ function get_setting($setting_key=''){
         if(mysqli_num_rows($result)){
             return mysqli_fetch_assoc($result)[$setting_key];
         }
-        
+        return '';
     }
     else{
         $result = mysqli_query($db_conn,"SELECT * FROM `settings`");

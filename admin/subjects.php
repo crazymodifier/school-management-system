@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
           </div>
           <div class="card-body">
             <form action="" method="post">
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label for="class">Select Class</label>
                 <select require name="class" id="class" class="form-control">
                   <option value="">-Select Class-</option>
@@ -68,7 +68,7 @@ if (isset($_POST['submit'])) {
                     <option value="<?php echo $class->id ?>"><?php echo $class->title ?></option>
                   <?php } ?>
                 </select>
-              </div>
+              </div> -->
 
               <!-- <div class="form-group" id="section-container" style="display:none">
                 <label for="section">Select Section</label>
