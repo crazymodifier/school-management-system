@@ -1,0 +1,8 @@
+# macOS
+**/.DS_Store
+**/.git
+**/.svn
+**/Thumbs.db
+
+#
+includes/config.php
