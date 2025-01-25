@@ -88,8 +88,6 @@ The `htdocs` folder is the root directory where your web projects will reside in
      ```
    - You can name your project folder whatever you like, but in this case, we’ll use `sms-project`.
 
-3. **Place your project files**:
-   - Copy your **School Management System** project files into the `sms-project` folder.
 ### 3. Clone the Repository into the Project Folder
 
 1. **Navigate to the project folder**:
