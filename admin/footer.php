@@ -23,7 +23,9 @@
 <script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <script src="../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
 <script src="../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../plugins/select2/js/select2.full.min.js"></script>
 
+<script src="../plugins/calendar/zabuto_calendar.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.js"></script>
 
@@ -54,7 +56,7 @@
 <script>
 jQuery(document).ready(function(){
 
-  jQuery('#class').change(function(){
+  jQuery('#class_id').change(function(){
     // alert(jQuery(this).val());
 
     jQuery.ajax({
@@ -71,11 +73,14 @@ jQuery(document).ready(function(){
         {
           jQuery('#section-container').hide();
         }
-        jQuery('#section').html(response.options); 
+        jQuery('#section_id').html(response.options); 
       }
     });
   });
 
+  jQuery('.select-2-multi-select').select2({
+      theme: 'bootstrap4'
+    })
 })
 </script>
 </body>
