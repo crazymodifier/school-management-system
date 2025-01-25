@@ -91,7 +91,7 @@ if (isset($_POST['submit'])) {
                 <tr>
                   <th>S.No</th>
                   <th>Name</th>
-                  <th>section</th>
+                  <th>Sections</th>
                   <th>Date</th>
                   <th>Action</th>
                 </tr>
@@ -113,11 +113,13 @@ if (isset($_POST['submit'])) {
                       $class_meta = get_metadata($class->id, 'section');
                       foreach ($class_meta as $meta) {
                         $section = get_post(array('id' => $meta->meta_value));
-                        echo $section->title;
+                        echo '<span class="btn btn-sm btn-default">' . $section->title . '</span> ';
                       } ?>
                     </td>
                     <td><?= $class->publish_date ?></td>
-                    <td></td>
+                    <td>
+                      <a href="classes.php?action=edit&id=<?php echo $class->id;?>" class="btn btn-sm btn-info"><i class="fa fa-pencil-alt"></i></a>
+                    </td>
                   </tr>
                 <?php } ?>
               </tbody>
