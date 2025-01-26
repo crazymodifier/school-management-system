@@ -54,7 +54,7 @@
 <script>
 jQuery(document).ready(function(){
 
-  jQuery('#class').change(function(){
+  jQuery('#class_id').change(function(){
     // alert(jQuery(this).val());
 
     jQuery.ajax({
@@ -71,7 +71,7 @@ jQuery(document).ready(function(){
         {
           jQuery('#section-container').hide();
         }
-        jQuery('#section').html(response.options); 
+        jQuery('#section_id').html(response.options); 
       }
     });
   });
