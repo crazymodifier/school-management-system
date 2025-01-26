@@ -68,16 +68,11 @@ if(!empty($_GET['action']) && 'trash' == $_GET['action']){
 <section class="content">
   <div class="container-fluid">
 
-    <?php
-    if(isset($_GET['user'])){
-      include('users/'.$_GET['user'].'s.php');
-    }
-    ?>
-    
+    <?php if(isset($_GET['user'])) include('users/'.$_GET['user'].'s.php'); ?>
+
   </div><!--/. container-fluid -->
 </section>
 <!-- /.content -->
-
 <script>
   jQuery(document).on('click', '.trash-user', function(e){
     

@@ -1,6 +1,7 @@
 <?php if (isset($_GET['action'])) {
+    $user = [];
     if (!empty($_GET['id'])) {
-        $user = get_user_data($_GET['id'],false);
+        $user = get_user_data($_GET['id'], false);
     }
 
     $name = isset($user['name']) ? $user['name'] : '';

@@ -370,7 +370,7 @@ if (isset($_GET['action'])) {
 
   <?php else : 
 
-    include('../includes/std-proifle.php');
+    include('../lib/std-proifle.php');
     endif; ?>
 <?php  } else { ?>
   <!-- Info boxes -->
@@ -488,7 +488,7 @@ if (isset($_GET['action'])) {
           // }
         },
         complete: function() {
-          // jQuery('#loader').hide();
+        //   jQuery('#loader').hide();
         }
       });
     }
