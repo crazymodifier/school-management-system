@@ -38,7 +38,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (1,'teacher','teacher.1@example.com','25f9e794323b453885f5181f1b624d0b','Teacher 1'),(15,'admin','admin@technostudy.co.in','d100af17e9ab72768d551bcadeba2e59','Techno Study'),(17,'counseller','counseller@example.com','e807f1fcf82d132f9bb018ca6738a19f','Counseller'),(25,'student','modifiercrazy@gmail.com','4a30c7dc09d099f4b92cd8e9f3e488dd','Suraj Kumar'),(26,'parent','1234567890','e807f1fcf82d132f9bb018ca6738a19f','Ravindra nath');
+INSERT INTO `accounts` VALUES (15,'admin','admin@technostudy.co.in','d100af17e9ab72768d551bcadeba2e59','Techno Study'),(17,'counseller','counseller@example.com','e807f1fcf82d132f9bb018ca6738a19f','Counseller'),(25,'student','modifiercrazy@gmail.com','4a30c7dc09d099f4b92cd8e9f3e488dd','Suraj Kumar'),(26,'parent','1234567890','e807f1fcf82d132f9bb018ca6738a19f','Ravindra nath');
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,6 +156,31 @@ INSERT INTO `posts` VALUES (5,1,'First Period','First Period Description','perio
 UNLOCK TABLES;
 
 --
+-- Table structure for table `settings`
+--
+
+DROP TABLE IF EXISTS `settings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `settings` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `setting_key` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `setting_value` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `settings`
+--
+
+LOCK TABLES `settings` WRITE;
+/*!40000 ALTER TABLE `settings` DISABLE KEYS */;
+INSERT INTO `settings` VALUES (7,'site_url','http://localhost/sms-project/');
+/*!40000 ALTER TABLE `settings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `usermeta`
 --
 
@@ -177,7 +202,7 @@ CREATE TABLE `usermeta` (
 
 LOCK TABLES `usermeta` WRITE;
 /*!40000 ALTER TABLE `usermeta` DISABLE KEYS */;
-INSERT INTO `usermeta` VALUES (1,25,'dob','1997-09-27'),(2,25,'mobile','1234567891'),(3,25,'payment_method',''),(4,25,'class','37'),(5,25,'address','Gomitnagar, Lucknow'),(6,25,'country','India'),(7,25,'state','UP'),(8,25,'zip','226010'),(9,25,'father_name','Ravindra nath'),(10,25,'father_mobile','1234567890'),(11,25,'mother_name','Savitri devi'),(12,25,'mother_mobile','0987654321'),(13,25,'parents_address','Robertsganj, Sonebhadra'),(14,25,'parents_country','India'),(15,25,'parents_state','UP'),(16,25,'parents_zip','231216'),(17,25,'school_name','MCLKP'),(18,25,'previous_class','1'),(19,25,'status','Passed'),(20,25,'total_marks','500'),(21,25,'obtain_mark','445'),(22,25,'previous_percentage','89'),(23,25,'section','30'),(24,25,'subject_streem','PCM'),(25,25,'doa','2023-10-17'),(26,26,'children','a:2:{i:0;i:25;i:1;i:31;}'),(152,1,'dob',''),(153,1,'mobile',''),(154,1,'address',''),(155,1,'country',''),(156,1,'state',''),(157,1,'zip',''),(158,1,'gender','Male'),(159,1,'religion','Hindu'),(160,1,'category','General'),(161,1,'aadhar_number',''),(162,1,'father_name',''),(163,1,'doj','2025-01-25'),(164,1,'salary',''),(165,1,'upi',''),(166,1,'ac_holder_name',''),(167,1,'account_number',''),(168,1,'ifsc_code',''),(169,1,'bank_name',''),(170,1,'subjects',''),(171,1,'teaching_area',''),(172,1,'emp_id',''),(173,25,'gender','Male'),(174,25,'religion','Hindu'),(175,25,'category','General'),(176,25,'enrollment_no',''),(177,25,'photo','_photo.jpg');
+INSERT INTO `usermeta` VALUES (1,25,'dob','1997-09-27'),(2,25,'mobile','1234567891'),(3,25,'payment_method',''),(4,25,'class','37'),(5,25,'address','Gomitnagar, Lucknow'),(6,25,'country','India'),(7,25,'state','UP'),(8,25,'zip','226010'),(9,25,'father_name','Ravindra nath'),(10,25,'father_mobile','1234567890'),(11,25,'mother_name','Savitri devi'),(12,25,'mother_mobile','0987654321'),(13,25,'parents_address','Robertsganj, Sonebhadra'),(14,25,'parents_country','India'),(15,25,'parents_state','UP'),(16,25,'parents_zip','231216'),(17,25,'school_name','MCLKP'),(18,25,'previous_class','1'),(19,25,'status','Passed'),(20,25,'total_marks','500'),(21,25,'obtain_mark','445'),(22,25,'previous_percentage','89'),(23,25,'section','30'),(24,25,'subject_streem','PCM'),(25,25,'doa','2023-10-17'),(26,26,'children','a:2:{i:0;i:25;i:1;i:31;}'),(173,25,'gender','Male'),(174,25,'religion','Hindu'),(175,25,'category','General'),(176,25,'enrollment_no','20232709000001'),(177,25,'photo','20232709000001_photo.jpg');
 /*!40000 ALTER TABLE `usermeta` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -190,4 +215,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-26 20:24:44
+-- Dump completed on 2025-02-09 19:22:27
