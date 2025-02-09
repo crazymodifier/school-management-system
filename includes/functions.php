@@ -1,5 +1,24 @@
 <?php
 
+// 
+function get_setting($key='',$signle=false,$type ='object')
+{
+    global $db_conn;
+    $query = mysqli_query($db_conn,"SELECT * FROM settings");
+
+    if(!empty($key))
+    {
+        $query = mysqli_query($db_conn,"SELECT * FROM settings WHERE setting_key = '$key'");
+    }
+    
+    if($signle){
+        return mysqli_fetch_object($query)->setting_value ;
+    }else{
+        return data_output($query , $type);
+    }
+}
+
+
 function get_the_teachers($args)
 {
     return $args;
