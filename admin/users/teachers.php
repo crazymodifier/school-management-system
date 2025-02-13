@@ -432,7 +432,7 @@
                 },
                 success: function(response) {
                     // console.log(response);
-                    // location.href = 'http://localhost/sms-project/admin/user-account.php?user=teacher';
+                    location.href = 'http://localhost/sms-project/admin/user-account.php?user=teacher';
                 },
                 complete: function() {
                     // jQuery('#loader').hide();

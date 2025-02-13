@@ -90,8 +90,18 @@ function get_metadata($item_id,$meta_key='',$type ='object')
     if(!empty($meta_key))
     {
         $query = mysqli_query($db_conn,"SELECT * FROM metadata WHERE item_id = $item_id AND meta_key = '$meta_key'");
+        return data_output($query , $type);
     }
-    return data_output($query , $type);
+    $output = [];
+    while ($result = mysqli_fetch_object($query)) {
+        $output[$result->meta_key] = $result->meta_value;
+    }
+
+    if($type == 'object'){
+        return  (object) $output;
+    }
+    return $output;
+    
 }
 
 
@@ -169,7 +179,7 @@ function get_user_metadata($user_id)
     return $output;
 }
 
-function get_usermeta($user_id,$meta_key,$signle=true)
+function get_usermeta($user_id,$meta_key,$single=true)
 {
     global $db_conn;
     if(!empty($user_id) && !empty($meta_key))
@@ -179,7 +189,7 @@ function get_usermeta($user_id,$meta_key,$signle=true)
     else{
         return false;
     }
-    if($signle)
+    if($single)
     {
         return mysqli_fetch_object($query)->meta_value;
     }
